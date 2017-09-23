@@ -47,6 +47,9 @@ namespace VExp
 
             Vector[] swap1 = Vector.Swap(new Vector(1, 2, 3));
             Vector[] swap2 = Vector.Swap(new Vector(1, 2, 3), new Vector(4, 5, 6));
+
+            Vector min = Vector.Min(new Vector(-1, 1, -1), new Vector(1, -1, 1));
+            Vector max = Vector.Max(new Vector(-1, 1, -1), new Vector(1, -1, 1));
         }
     }
 }

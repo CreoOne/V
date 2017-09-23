@@ -150,6 +150,36 @@ namespace V
             return v * CosTheta + Cross(axis, v) * Math.Sin(-theta) + axis * Dot(axis, v) * (1.0f - CosTheta);
         }
 
+        /// <summary>
+        /// Min value vector from vectors
+        /// </summary>
+        [DebuggerStepThrough]
+        public static Vector Min(params Vector[] v)
+        {
+            Vector[] swapped = Swap(v);
+            double[] values = new double[v[0].Dimensions];
+
+            for (int index = 0; index < swapped.Length; index++)
+                values[index] = Aggregate(swapped[index], (result, q) => Math.Min(result, q), double.MaxValue);
+
+            return new Vector(values);
+        }
+
+        /// <summary>
+        /// Max value vector from vectors
+        /// </summary>
+        [DebuggerStepThrough]
+        public static Vector Max(params Vector[] v)
+        {
+            Vector[] swapped = Swap(v);
+            double[] values = new double[v[0].Dimensions];
+
+            for (int index = 0; index < swapped.Length; index++)
+                values[index] = Aggregate(swapped[index], (result, q) => Math.Max(result, q), double.MinValue);
+
+            return new Vector(values);
+        }
+
         #region Operators
         [DebuggerStepThrough]
         public static Vector operator -(Vector q)
@@ -380,7 +410,7 @@ namespace V
         /// Aggregates value of every dimension using operation function
         /// </summary>
         [DebuggerStepThrough]
-        public static double Aggregate(Vector q, Func<double, double, double> operation)
+        public static double Aggregate(Vector q, Func<double, double, double> operation, double entry = default(double))
         {
             double result = 0;
 
@@ -394,7 +424,7 @@ namespace V
         /// Aggregates value of every dimension using operation function
         /// </summary>
         [DebuggerStepThrough]
-        public static double Aggregate(Vector q, Func<double, double, int, double> operation)
+        public static double Aggregate(Vector q, Func<double, double, int, double> operation, double entry = default(double))
         {
             double result = 0;
 
