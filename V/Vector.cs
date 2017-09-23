@@ -87,8 +87,10 @@ namespace V
             if (v.Length == 0)
                 throw new InvalidOperationException();
 
+            EnsureConsistentDimensionality(v);
+
             if (v.Any(vec => vec.Dimensions != v.Length + 1))
-                throw new DimensionalityMismatchException();
+                throw new ArgumentException();
 
             return Map(Create(v[0].Dimensions, 1), (value, index) => DetWeave(value, v, index));
         }
@@ -105,8 +107,10 @@ namespace V
             if (v.Length == 0)
                 throw new InvalidOperationException();
 
-            if (v.Any(vec => vec.Dimensions != v.Length))
-                throw new DimensionalityMismatchException();
+            EnsureConsistentDimensionality(v);
+
+            if (v[0].Dimensions != v.Length)
+                throw new ArgumentException();
 
             if (v[0].Dimensions == 1)
                 return v[0].Values[0];
@@ -125,6 +129,8 @@ namespace V
         [DebuggerStepThrough]
         public static bool CloseEnough(Vector q, Vector r, double distance)
         {
+            EnsureConsistentDimensionality(q, r);
+
             return (r - q).LengthSquared <= distance * distance;
         }
 
@@ -134,6 +140,8 @@ namespace V
         [DebuggerStepThrough]
         public static double AngleDifference(Vector q, Vector o, Vector r)
         {
+            EnsureConsistentDimensionality(q, o, r);
+
             return Math.Acos(Dot(Normalize(q - o), Normalize(r - o)));
         }
 
@@ -143,6 +151,8 @@ namespace V
         [DebuggerStepThrough]
         public static Vector RotateAroundAxis(Vector v, Vector axis, double theta)
         {
+            EnsureConsistentDimensionality(v, axis);
+
             double CosTheta = Math.Cos(-theta);
             axis = Normalize(axis);
 
@@ -156,6 +166,8 @@ namespace V
         [DebuggerStepThrough]
         public static Vector Min(params Vector[] v)
         {
+            EnsureConsistentDimensionality(v);
+
             Vector[] swapped = Swap(v);
             double[] values = new double[v[0].Dimensions];
 
@@ -171,6 +183,8 @@ namespace V
         [DebuggerStepThrough]
         public static Vector Max(params Vector[] v)
         {
+            EnsureConsistentDimensionality(v);
+
             Vector[] swapped = Swap(v);
             double[] values = new double[v[0].Dimensions];
 
@@ -186,8 +200,7 @@ namespace V
         [DebuggerStepThrough]
         public static Vector Lerp(Vector q, Vector r, double position)
         {
-            if (q.Dimensions != r.Dimensions)
-                throw new DimensionalityMismatchException();
+            EnsureConsistentDimensionality(q, r);
 
             return q + (r - q) * position;
         }
@@ -285,6 +298,8 @@ namespace V
             if (v.Length == 0)
                 throw new ArgumentException();
 
+            EnsureConsistentDimensionality(v);
+
             Vector[] result = new Vector[v[0].Dimensions];
 
             for (int dimension = 0; dimension < v[0].Dimensions; dimension++)
@@ -306,8 +321,7 @@ namespace V
         [DebuggerStepThrough]
         public static Vector Merge(Vector q, Vector r, Func<double, double, double> operation)
         {
-            if (q.Dimensions != r.Dimensions)
-                throw new DimensionalityMismatchException();
+            EnsureConsistentDimensionality(q, r);
 
             double[] values = new double[q.Dimensions];
 
@@ -323,8 +337,7 @@ namespace V
         [DebuggerStepThrough]
         public static Vector Merge(Vector q, Vector r, Func<double, double, int, double> operation)
         {
-            if (q.Dimensions != r.Dimensions)
-                throw new DimensionalityMismatchException();
+            EnsureConsistentDimensionality(q, r);
 
             double[] values = new double[q.Dimensions];
 
@@ -532,6 +545,21 @@ namespace V
             return new Vector(values);
         }
         #endregion
+
+        private static void EnsureConsistentDimensionality(params Vector[] v)
+        {
+            if (v == null)
+                return;
+
+            if (v.Length <= 1)
+                return;
+
+            Vector first = v[0];
+
+            for (int index = 1; index < v.Length; index++)
+                if (first.Dimensions != v[index].Dimensions)
+                    throw new DimensionalityMismatchException();
+        }
 
         public override string ToString()
         {
