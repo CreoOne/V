@@ -50,6 +50,9 @@ namespace VExp
 
             Vector min = Vector.Min(new Vector(-1, 1, -1), new Vector(1, -1, 1));
             Vector max = Vector.Max(new Vector(-1, 1, -1), new Vector(1, -1, 1));
+
+            Vector slerp1 = Vector.Slerp(new Vector(-1, 0), new Vector(0, 0), new Vector(0, 1), 0.5);
+            Vector slerp2 = Vector.Slerp(Vector.Normalize(new Vector(-1, 1)), Vector.Normalize(new Vector(1, 1)), 0.5);
         }
     }
 }

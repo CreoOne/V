@@ -180,6 +180,18 @@ namespace V
             return new Vector(values);
         }
 
+        /// <summary>
+        /// Linear interpolation
+        /// </summary>
+        [DebuggerStepThrough]
+        public static Vector Lerp(Vector q, Vector r, double position)
+        {
+            if (q.Dimensions != r.Dimensions)
+                throw new DimensionalityMismatchException();
+
+            return q + (r - q) * position;
+        }
+
         #region Operators
         [DebuggerStepThrough]
         public static Vector operator -(Vector q)
