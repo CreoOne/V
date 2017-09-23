@@ -40,6 +40,10 @@ namespace V
         public Vector(params double[] values)
         {
             Values = values ?? throw new ArgumentNullException(nameof(values));
+
+            if (values.Length == 0)
+                throw new ArgumentException();
+
             Dimensions = values.Count();
         }
 
@@ -73,6 +77,9 @@ namespace V
             if (v == null)
                 throw new ArgumentNullException(nameof(v));
 
+            if (v.Length == 0)
+                throw new InvalidOperationException();
+
             if (v.Any(vec => vec.Dimensions != v.Length + 1))
                 throw new DimensionalityMismatchException();
 
@@ -86,6 +93,9 @@ namespace V
         {
             if (v == null)
                 throw new ArgumentNullException(nameof(v));
+
+            if (v.Length == 0)
+                throw new InvalidOperationException();
 
             if (v.Any(vec => vec.Dimensions != v.Length))
                 throw new DimensionalityMismatchException();
@@ -107,6 +117,26 @@ namespace V
         public static bool CloseEnough(Vector q, Vector r, double distance)
         {
             return (r - q).LengthSquared <= distance * distance;
+        }
+
+        /// <summary>
+        /// Angle difference between two vectors
+        /// </summary>
+        public static double AngleDifference(Vector q, Vector o, Vector r)
+        {
+            return Math.Acos(Dot(Normalize(q - o), Normalize(r - o)));
+        }
+
+        /// <summary>
+        /// Rotate vector around axis
+        /// </summary>
+        public static Vector RotateAroundAxis(Vector v, Vector axis, double theta)
+        {
+            double CosTheta = Math.Cos(-theta);
+            axis = Normalize(axis);
+
+            // v * cos(theta) + cross(k, v) * sin(theta) + k * dot(k, v) * (1 - cos(theta));
+            return v * CosTheta + Cross(axis, v) * Math.Sin(-theta) + axis * Dot(axis, v) * (1.0f - CosTheta);
         }
 
         #region Operators
@@ -178,7 +208,7 @@ namespace V
 
         #region Operations
         /// <summary>
-        /// Marges corresponding dimensions of two vectors using operation function
+        /// Merges corresponding dimensions of two vectors using operation function
         /// </summary>
         public static Vector Merge(Vector q, Vector r, Func<double, double, double> operation)
         {
@@ -194,7 +224,7 @@ namespace V
         }
 
         /// <summary>
-        /// Marges corresponding dimensions of two vectors using operation function
+        /// Merges corresponding dimensions of two vectors using operation function
         /// </summary>
         public static Vector Merge(Vector q, Vector r, Func<double, double, int, double> operation)
         {
@@ -210,7 +240,7 @@ namespace V
         }
 
         /// <summary>
-        /// Marges corresponding dimensions of vector with scalar value using operation function
+        /// Merges corresponding dimensions of vector with scalar value using operation function
         /// </summary>
         public static Vector Merge(double q, Vector r, Func<double, double, double> operation)
         {
@@ -223,7 +253,7 @@ namespace V
         }
 
         /// <summary>
-        /// Marges corresponding dimensions of vector with scalar value using operation function
+        /// Merges corresponding dimensions of vector with scalar value using operation function
         /// </summary>
         public static Vector Merge(double q, Vector r, Func<double, double, int, double> operation)
         {
@@ -236,7 +266,7 @@ namespace V
         }
 
         /// <summary>
-        /// Marges corresponding dimensions of vector with scalar value using operation function
+        /// Merges corresponding dimensions of vector with scalar value using operation function
         /// </summary>
         public static Vector Merge(Vector q, double r, Func<double, double, double> operation)
         {
@@ -249,7 +279,7 @@ namespace V
         }
 
         /// <summary>
-        /// Marges corresponding dimensions of vector with scalar value using operation function
+        /// Merges corresponding dimensions of vector with scalar value using operation function
         /// </summary>
         public static Vector Merge(Vector q, double r, Func<double, double, int, double> operation)
         {
@@ -321,10 +351,7 @@ namespace V
             double[] values = new double[q.Dimensions + 1];
 
             for (int index = 0; index < q.Dimensions; index++)
-                if (index < position)
-                    values[index] = q.Values[index];
-                else
-                    values[index + 1] = q.Values[index];
+                values[index + (index < position ? 0 : 1)] = q.Values[index];
 
             values[position] = value;
 
@@ -355,10 +382,7 @@ namespace V
             double[] values = new double[q.Dimensions - 1];
 
             for (int index = 0; index < q.Dimensions -1; index++)
-                if (index < position)
-                    values[index] = q.Values[index];
-                else
-                    values[index] = q.Values[index + 1];
+                values[index] = q.Values[index + (index < position ? 0 : 1)];
 
             return new Vector(values);
         }
