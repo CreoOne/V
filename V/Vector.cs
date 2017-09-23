@@ -232,6 +232,33 @@ namespace V
 
         #region Operations
         /// <summary>
+        /// Swaps
+        /// </summary>
+        [DebuggerStepThrough]
+        public static Vector[] Swap(params Vector[] v)
+        {
+            if (v == null)
+                throw new ArgumentNullException(nameof(v));
+
+            if (v.Length == 0)
+                throw new ArgumentException();
+
+            Vector[] result = new Vector[v[0].Dimensions];
+
+            for (int dimension = 0; dimension < v[0].Dimensions; dimension++)
+            {
+                double[] values = new double[v.Length];
+
+                for (int index = 0; index < v.Length; index++)
+                    values[index] = v[index].Values[dimension];
+
+                result[dimension] = new Vector(values);
+            }
+
+            return result;
+        }
+
+        /// <summary>
         /// Merges corresponding dimensions of two vectors using operation function
         /// </summary>
         [DebuggerStepThrough]

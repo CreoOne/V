@@ -44,6 +44,9 @@ namespace VExp
 
             Vector normalize = Vector.Normalize(new Vector(1, 1));
             double dot = Vector.Dot(new Vector(1, 0), new Vector(0.5, 0.5));
+
+            Vector[] swap1 = Vector.Swap(new Vector(1, 2, 3));
+            Vector[] swap2 = Vector.Swap(new Vector(1, 2, 3), new Vector(4, 5, 6));
         }
     }
 }
