@@ -412,12 +412,10 @@ namespace V
         [DebuggerStepThrough]
         public static double Aggregate(Vector q, Func<double, double, double> operation, double entry = default(double))
         {
-            double result = 0;
-
             for (int index = 0; index < q.Dimensions; index++)
-                result = operation(result, q.Values[index]);
+                entry = operation(entry, q.Values[index]);
 
-            return result;
+            return entry;
         }
 
         /// <summary>
@@ -426,12 +424,10 @@ namespace V
         [DebuggerStepThrough]
         public static double Aggregate(Vector q, Func<double, double, int, double> operation, double entry = default(double))
         {
-            double result = 0;
-
             for (int index = 0; index < q.Dimensions; index++)
-                result = operation(result, q.Values[index], index);
+                entry = operation(entry, q.Values[index], index);
 
-            return result;
+            return entry;
         }
 
         /// <summary>
