@@ -546,18 +546,15 @@ namespace V
         }
         #endregion
 
-        private static void EnsureConsistentDimensionality(params Vector[] v)
+        private static void EnsureConsistentDimensionality(params Vector[] vectors)
         {
-            if (v == null)
+            if (vectors == null || vectors.Length <= 1)
                 return;
 
-            if (v.Length <= 1)
-                return;
+            int dimensions = vectors[0].Dimensions;
 
-            Vector first = v[0];
-
-            for (int index = 1; index < v.Length; index++)
-                if (first.Dimensions != v[index].Dimensions)
+            foreach(Vector vector in vectors)
+                if (dimensions != vector.Dimensions)
                     throw new DimensionalityMismatchException();
         }
 
