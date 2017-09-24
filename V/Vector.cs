@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace V
 {
@@ -79,48 +77,48 @@ namespace V
         /// Creates cross product of vectors
         /// </summary>
         [DebuggerStepThrough]
-        public static Vector Cross(params Vector[] v)
+        public static Vector Cross(params Vector[] vectors)
         {
-            if (v == null)
-                throw new ArgumentNullException(nameof(v));
+            if (vectors == null)
+                throw new ArgumentNullException(nameof(vectors));
 
-            if (v.Length == 0)
+            if (vectors.Length == 0)
                 throw new InvalidOperationException();
 
-            EnsureConsistentDimensionality(v);
+            EnsureConsistentDimensionality(vectors);
 
-            if (v.Any(vec => vec.Dimensions != v.Length + 1))
+            if (vectors.Any(vector => vector.Dimensions != vectors.Length + 1))
                 throw new ArgumentException();
 
-            return Map(Create(v[0].Dimensions, 1), (value, index) => DetWeave(value, v, index));
+            return Map(Create(vectors[0].Dimensions, 1), (value, index) => DetWeave(value, vectors, index));
         }
 
         /// <summary>
         /// Creates determinant of vectors
         /// </summary>
         [DebuggerStepThrough]
-        public static double Det(params Vector[] v)
+        public static double Det(params Vector[] vectors)
         {
-            if (v == null)
-                throw new ArgumentNullException(nameof(v));
+            if (vectors == null)
+                throw new ArgumentNullException(nameof(vectors));
 
-            if (v.Length == 0)
+            if (vectors.Length == 0)
                 throw new InvalidOperationException();
 
-            EnsureConsistentDimensionality(v);
+            EnsureConsistentDimensionality(vectors);
 
-            if (v[0].Dimensions != v.Length)
+            if (vectors[0].Dimensions != vectors.Length)
                 throw new ArgumentException();
 
-            if (v[0].Dimensions == 1)
-                return v[0].Values[0];
+            if (vectors[0].Dimensions == 1)
+                return vectors[0].Values[0];
 
-            return Aggregate(v[0], (result, value, index) => result + DetWeave(value, v.Skip(1), index));
+            return Aggregate(vectors[0], (result, value, index) => result + DetWeave(value, vectors.Skip(1), index));
         }
 
-        private static double DetWeave(double value, IEnumerable<Vector> v, int index)
+        private static double DetWeave(double value, IEnumerable<Vector> vectors, int index)
         {
-            return (index % 2 == 0 ? 1 : -1) * (value * Det(v.Select(d => Remove(d, index)).ToArray()));
+            return (index % 2 == 0 ? 1 : -1) * (value * Det(vectors.Select(d => Remove(d, index)).ToArray()));
         }
 
         /// <summary>
@@ -149,27 +147,27 @@ namespace V
         /// Rotate vector around axis
         /// </summary>
         [DebuggerStepThrough]
-        public static Vector RotateAroundAxis(Vector v, Vector axis, double theta)
+        public static Vector RotateAroundAxis(Vector vector, Vector axis, double theta)
         {
-            EnsureConsistentDimensionality(v, axis);
+            EnsureConsistentDimensionality(vector, axis);
 
             double CosTheta = Math.Cos(-theta);
             axis = Normalize(axis);
 
             // v * cos(theta) + cross(k, v) * sin(theta) + k * dot(k, v) * (1 - cos(theta));
-            return v * CosTheta + Cross(axis, v) * Math.Sin(-theta) + axis * Dot(axis, v) * (1.0f - CosTheta);
+            return vector * CosTheta + Cross(axis, vector) * Math.Sin(-theta) + axis * Dot(axis, vector) * (1.0f - CosTheta);
         }
 
         /// <summary>
         /// Min value vector from vectors
         /// </summary>
         [DebuggerStepThrough]
-        public static Vector Min(params Vector[] v)
+        public static Vector Min(params Vector[] vectors)
         {
-            EnsureConsistentDimensionality(v);
+            EnsureConsistentDimensionality(vectors);
 
-            Vector[] swapped = Swap(v);
-            double[] values = new double[v[0].Dimensions];
+            Vector[] swapped = Swap(vectors);
+            double[] values = new double[vectors[0].Dimensions];
 
             for (int index = 0; index < swapped.Length; index++)
                 values[index] = Aggregate(swapped[index], (result, q) => Math.Min(result, q), double.MaxValue);
@@ -181,12 +179,12 @@ namespace V
         /// Max value vector from vectors
         /// </summary>
         [DebuggerStepThrough]
-        public static Vector Max(params Vector[] v)
+        public static Vector Max(params Vector[] vectors)
         {
-            EnsureConsistentDimensionality(v);
+            EnsureConsistentDimensionality(vectors);
 
-            Vector[] swapped = Swap(v);
-            double[] values = new double[v[0].Dimensions];
+            Vector[] swapped = Swap(vectors);
+            double[] values = new double[vectors[0].Dimensions];
 
             for (int index = 0; index < swapped.Length; index++)
                 values[index] = Aggregate(swapped[index], (result, q) => Math.Max(result, q), double.MinValue);
@@ -290,24 +288,24 @@ namespace V
         /// Swaps
         /// </summary>
         [DebuggerStepThrough]
-        public static Vector[] Swap(params Vector[] v)
+        public static Vector[] Swap(params Vector[] vectors)
         {
-            if (v == null)
-                throw new ArgumentNullException(nameof(v));
+            if (vectors == null)
+                throw new ArgumentNullException(nameof(vectors));
 
-            if (v.Length == 0)
+            if (vectors.Length == 0)
                 throw new ArgumentException();
 
-            EnsureConsistentDimensionality(v);
+            EnsureConsistentDimensionality(vectors);
 
-            Vector[] result = new Vector[v[0].Dimensions];
+            Vector[] result = new Vector[vectors[0].Dimensions];
 
-            for (int dimension = 0; dimension < v[0].Dimensions; dimension++)
+            for (int dimension = 0; dimension < vectors[0].Dimensions; dimension++)
             {
-                double[] values = new double[v.Length];
+                double[] values = new double[vectors.Length];
 
-                for (int index = 0; index < v.Length; index++)
-                    values[index] = v[index].Values[dimension];
+                for (int index = 0; index < vectors.Length; index++)
+                    values[index] = vectors[index].Values[dimension];
 
                 result[dimension] = new Vector(values);
             }
