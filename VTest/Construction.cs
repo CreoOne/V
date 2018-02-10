@@ -27,6 +27,16 @@ namespace VTest
                 Assert.AreEqual(2, v.Dimensions);
                 Assert.AreEqual(new double[] { 1, -2 }, v.ToArray());
             }
+
+            {
+                try
+                {
+                    new Vector(null);
+                    Assert.Fail();
+                }
+
+                catch { }
+            }
         }
 
         [Test]

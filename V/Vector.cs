@@ -129,29 +129,32 @@ namespace V
         }
 
         /// <summary>
-        /// Angle difference between two vectors
+        /// Angle difference between two vectors in radians
         /// </summary>
         [DebuggerStepThrough]
         public static double AngleDifference(Vector q, Vector o, Vector r)
         {
             EnsureConsistentDimensionality(q, o, r);
 
+            if (q.Dimensions == 0)
+                return 0;
+
             return Math.Acos(Dot(Normalize(q - o), Normalize(r - o)));
         }
 
         /// <summary>
-        /// Rotate vector around axis
+        /// Rotate vector around axis by angle in radians
         /// </summary>
         [DebuggerStepThrough]
-        public static Vector RotateAroundAxis(Vector vector, Vector axis, double theta)
+        public static Vector RotateAroundAxis(Vector vector, Vector axis, double angle)
         {
             EnsureConsistentDimensionality(vector, axis);
 
-            double CosTheta = Math.Cos(-theta);
+            double CosTheta = Math.Cos(-angle);
             axis = Normalize(axis);
 
             // v * cos(theta) + cross(k, v) * sin(theta) + k * dot(k, v) * (1 - cos(theta));
-            return vector * CosTheta + Cross(axis, vector) * Math.Sin(-theta) + axis * Dot(axis, vector) * (1.0f - CosTheta);
+            return vector * CosTheta + Cross(axis, vector) * Math.Sin(-angle) + axis * Dot(axis, vector) * (1.0f - CosTheta);
         }
 
         /// <summary>
@@ -540,6 +543,7 @@ namespace V
         }
         #endregion
 
+        [DebuggerStepThrough]
         private static void EnsureConsistentDimensionality(params Vector[] vectors)
         {
             if (vectors == null || vectors.Length <= 1)
@@ -552,11 +556,13 @@ namespace V
                     throw new DimensionalityMismatchException();
         }
 
+        [DebuggerStepThrough]
         public override string ToString()
         {
             return string.Format("[{0}]", string.Join(", ", Values));
         }
 
+        [DebuggerStepThrough]
         public double[] ToArray()
         {
             if (Values == null)
@@ -567,6 +573,7 @@ namespace V
             return result;
         }
 
+        [DebuggerStepThrough]
         public IEnumerable<double> ToEnumerable()
         {
             return Values ?? new double[] { };
