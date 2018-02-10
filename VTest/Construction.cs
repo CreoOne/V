@@ -23,9 +23,9 @@ namespace VTest
             }
 
             {
-                Vector v = new Vector(1, 2);
+                Vector v = new Vector(1, -2);
                 Assert.AreEqual(2, v.Dimensions);
-                Assert.AreEqual(new double[] { 1, 2 }, v.ToArray());
+                Assert.AreEqual(new double[] { 1, -2 }, v.ToArray());
             }
         }
 
@@ -48,6 +48,16 @@ namespace VTest
                 Vector v = Vector.Create(2, 3);
                 Assert.AreEqual(2, v.Dimensions);
                 Assert.AreEqual(new double[] { 3, 3 }, v.ToArray());
+            }
+
+            {
+                try
+                {
+                    Vector.Create(-1, 2);
+                    Assert.Fail();
+                }
+
+                catch { }
             }
         }
 

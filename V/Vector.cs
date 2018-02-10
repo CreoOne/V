@@ -83,7 +83,7 @@ namespace V
 
             EnsureConsistentDimensionality(vectors);
 
-            if (vectors.Any(vector => vector.Dimensions != vectors.Length + 1))
+            if (vectors[0].Dimensions != vectors.Length + 1)
                 throw new ArgumentException();
 
             return Map(Create(vectors[0].Dimensions, 1), (value, index) => DetWeave(value, vectors, index));
@@ -559,6 +559,9 @@ namespace V
 
         public double[] ToArray()
         {
+            if (Values == null)
+                return new double[] { };
+
             double[] result = new double[Dimensions];
             Array.Copy(Values, result, Dimensions);
             return result;
@@ -566,7 +569,7 @@ namespace V
 
         public IEnumerable<double> ToEnumerable()
         {
-            return Values;
+            return Values ?? new double[] { };
         }
     }
 }
