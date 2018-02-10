@@ -15,14 +15,14 @@ namespace V
         /// <summary>
         /// Concrete values in corresponding dimensions
         /// </summary>
-        public double[] Values { get; private set; }
+        private double[] Values { get; set; }
 
         public double LengthSquared { get { return Aggregate(this, (r, q) => r + q * q); } }
         public double Length { get { return Math.Sqrt(LengthSquared); } }
 
         public double this[int index]
         {
-            get { return Values[index]; }
+            get { return (Values ?? new double[] { })[index]; }
         }
 
         /// <summary>
@@ -41,10 +41,6 @@ namespace V
         public Vector(params double[] values)
         {
             Values = values ?? throw new ArgumentNullException(nameof(values));
-
-            if (values.Length == 0)
-                throw new ArgumentException();
-
             Dimensions = values.Count();
         }
 
@@ -559,6 +555,18 @@ namespace V
         public override string ToString()
         {
             return string.Format("[{0}]", string.Join(", ", Values));
+        }
+
+        public double[] ToArray()
+        {
+            double[] result = new double[Dimensions];
+            Array.Copy(Values, result, Dimensions);
+            return result;
+        }
+
+        public IEnumerable<double> ToEnumerable()
+        {
+            return Values;
         }
     }
 }
