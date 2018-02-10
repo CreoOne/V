@@ -536,10 +536,11 @@ namespace V
         [DebuggerStepThrough]
         public static Vector Set(Vector q, double value, int position)
         {
-            double[] values = q.Values;
-            values[position] = value;
+            double[] result = new double[q.Dimensions];
+            Array.Copy(q.Values, result, q.Dimensions);
+            result[position] = value;
 
-            return new Vector(values);
+            return new Vector(result);
         }
         #endregion
 

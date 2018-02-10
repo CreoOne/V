@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Drawing;
+using System.Drawing.Imaging;
 using V;
 
 namespace VExp
@@ -7,9 +9,14 @@ namespace VExp
     {
         static void Main(string[] args)
         {
+            Vector size = new Vector(400, 300);
+
             ExpVectorCross();
             ExpVectorDimensionalityChanges();
+
             ExpVectorArithmetic();
+            VisualisationVectorSum(size);
+
             ExpVectorGeometry();
 
             Console.ReadLine();
@@ -59,6 +66,39 @@ namespace VExp
 
             Vector min = Vector.Min(new Vector(-1, 1, -1), new Vector(1, -1, 1));
             Vector max = Vector.Max(new Vector(-1, 1, -1), new Vector(1, -1, 1));
+        }
+
+        private static void VisualisationVectorSum(Vector size)
+        {
+            using (Render render = new Render(size))
+            {
+                render.DrawAxes();
+
+                Vector zero = Vector.Create(3, 0);
+
+                Vector q = new Vector(-0.2, 0.3, -0.3);
+                Vector qFlat = Vector.Set(q, 0, 1);
+                render.DrawLine(zero, q, Color.Red);
+                render.DrawLine(zero, qFlat, Color.Red, dotted: true);
+                render.DrawLine(q, qFlat, Color.Red, dotted: true);
+                render.DrawText(q, q.ToString(), Color.Red);
+
+                Vector r = new Vector(0.4, 0.4, 0.1);
+                Vector rFlat = Vector.Set(r, 0, 1);
+                render.DrawLine(zero, r, Color.Green);
+                render.DrawLine(zero, rFlat, Color.Green, dotted: true);
+                render.DrawLine(r, rFlat, Color.Green, dotted: true);
+                render.DrawText(r, r.ToString(), Color.Green);
+
+                Vector sum = q + r;
+                Vector sumFlat = Vector.Set(sum, 0, 1);
+                render.DrawLine(zero, sum, Color.Blue);
+                render.DrawLine(zero, sumFlat, Color.Blue, dotted: true);
+                render.DrawLine(sum, sumFlat, Color.Blue, dotted: true);
+                render.DrawText(sum, sum.ToString(), Color.Blue);
+
+                render.Save("sum.png");
+            }
         }
 
         private static void ExpVectorGeometry()
