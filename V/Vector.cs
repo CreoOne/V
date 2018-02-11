@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 
 namespace V
 {
     public struct Vector
     {
+        private static readonly NumberFormatInfo NumberFormat = new NumberFormatInfo { NumberDecimalSeparator = "." };
+
         /// <summary>
         /// Dimensions of vector
         /// </summary>
@@ -560,7 +563,7 @@ namespace V
         [DebuggerStepThrough]
         public override string ToString()
         {
-            return string.Format("[{0}]", string.Join(", ", Values));
+            return string.Format("[{0}]", string.Join(", ", Values.Select(v => v.ToString(NumberFormat))));
         }
 
         [DebuggerStepThrough]

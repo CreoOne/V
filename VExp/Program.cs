@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Drawing;
-using System.Drawing.Imaging;
 using V;
 
 namespace VExp
@@ -12,6 +11,8 @@ namespace VExp
             Vector size = new Vector(400, 300);
 
             ExpVectorCross();
+            VisualisationVectorCross(size);
+
             ExpVectorDimensionalityChanges();
 
             ExpVectorArithmetic();
@@ -27,6 +28,25 @@ namespace VExp
             Vector cross2d = Vector.Cross(new Vector(1, 0));
             Vector cross3d = Vector.Cross(new Vector(1, 0, 0), new Vector(0, 1, 0));
             Vector cross4d = Vector.Cross(new Vector(1, 0, 0, 0), new Vector(0, 1, 0, 0), new Vector(0, 0, 1, 0));
+        }
+
+        private static void VisualisationVectorCross(Vector size)
+        {
+            using (Render render = new Render(size))
+            {
+                render.DrawAxes();
+
+                Vector q = Vector.Normalize(new Vector(-0.2, 0.3, -0.3));
+                DrawLine(render, q, Color.Green);
+
+                Vector r = Vector.Normalize(new Vector(0.4, 0.4, 0.1));
+                DrawLine(render, r, Color.Green);
+
+                Vector cross = Vector.Cross(q, r);
+                DrawLine(render, cross, Color.Blue);
+
+                render.Save(@"..\..\img\cross.png");
+            }
         }
 
         private static void ExpVectorDimensionalityChanges()
@@ -74,30 +94,16 @@ namespace VExp
             {
                 render.DrawAxes();
 
-                Vector zero = Vector.Create(3, 0);
+                Vector q = new Vector(-0.4, 0.3, -0.6);
+                DrawLine(render, q, Color.Green);
 
-                Vector q = new Vector(-0.2, 0.3, -0.3);
-                Vector qFlat = Vector.Set(q, 0, 1);
-                render.DrawLine(zero, q, Color.Red);
-                render.DrawLine(zero, qFlat, Color.Red, dotted: true);
-                render.DrawLine(q, qFlat, Color.Red, dotted: true);
-                render.DrawText(q, q.ToString(), Color.Red);
-
-                Vector r = new Vector(0.4, 0.4, 0.1);
-                Vector rFlat = Vector.Set(r, 0, 1);
-                render.DrawLine(zero, r, Color.Green);
-                render.DrawLine(zero, rFlat, Color.Green, dotted: true);
-                render.DrawLine(r, rFlat, Color.Green, dotted: true);
-                render.DrawText(r, r.ToString(), Color.Green);
+                Vector r = new Vector(0.7, 0.4, 0.3);
+                DrawLine(render, r, Color.Green);
 
                 Vector sum = q + r;
-                Vector sumFlat = Vector.Set(sum, 0, 1);
-                render.DrawLine(zero, sum, Color.Blue);
-                render.DrawLine(zero, sumFlat, Color.Blue, dotted: true);
-                render.DrawLine(sum, sumFlat, Color.Blue, dotted: true);
-                render.DrawText(sum, sum.ToString(), Color.Blue);
+                DrawLine(render, sum, Color.Blue);
 
-                render.Save("sum.png");
+                render.Save(@"..\..\img\sum.png");
             }
         }
 
@@ -105,6 +111,24 @@ namespace VExp
         {
             Vector normalize = Vector.Normalize(new Vector(1, 1));
             double dot = Vector.Dot(new Vector(1, 0), new Vector(0.5, 0.5));
+        }
+
+        private static void DrawLine(Render render, Vector v, Color color)
+        {
+            Vector zero = Vector.Create(3, 0);
+
+            render.DrawLine(zero, v, color);
+
+            Vector vOnXZ = Vector.Set(v, 0, 1);
+            render.DrawLine(v, vOnXZ, color, dotted: true);
+
+            Vector vOnX = Vector.Set(vOnXZ, 0, 2);
+            render.DrawLine(vOnXZ, vOnX, color, dotted: true);
+
+            Vector vOnZ = Vector.Set(vOnXZ, 0, 0);
+            render.DrawLine(vOnXZ, vOnZ, color, dotted: true);
+
+            render.DrawText(v, Vector.Map(v, (d) => Math.Round(d, 3)).ToString(), color);
         }
     }
 }

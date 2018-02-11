@@ -43,22 +43,25 @@ namespace VExp
             using (SolidBrush brush = new SolidBrush(color))
             {
                 PointF point = VectorToPointF(v);
-                Context.DrawString(text, Font, brush, point.X - 2, point.Y - FontSize * 1.7f);
+                Context.DrawString(text, Font, brush, (int)(point.X - 2), (int)(point.Y - FontSize * 1.7f));
             }
         }
 
         public void DrawAxes()
         {
+            Color axisColor = Color.FromArgb(150, 150, 150);
+
             Vector zero = Vector.Create(3, 0);
-            string[] marks = new string[] { "x", "y", "z" };
+            string[] marks = new string[] { "+x", "-x", "+y", "-y", "+z", "-z" };
 
             foreach(int dimension in Enumerable.Range(0, 3))
             {
                 Vector positive = Vector.Set(zero, 1, dimension);
                 Vector negative = -positive;
 
-                DrawLine(negative, positive, Color.Silver);
-                DrawText(positive, marks[dimension], Color.Silver);
+                DrawLine(negative, positive, axisColor);
+                DrawText(positive, marks[dimension * 2], axisColor);
+                DrawText(negative, marks[dimension * 2 + 1], axisColor);
             }
         }
 
