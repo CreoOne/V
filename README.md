@@ -41,5 +41,5 @@ Vector add3 = 2 + new Vector(2, 1);
 ```
 
 Visualization of two 3 dimensional vectors (in green) resulting in third vector as a sum (in blue)
-[[https://github.com/CreoOne/V/blob/master/VExp/img/sum.png|alt=addition_visualization]]
+![chart](https://github.com/CreoOne/V/blob/master/VExp/img/sum.png "3 dimensional chart with 3 vectors represented as a lines")
 
