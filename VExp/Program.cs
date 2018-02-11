@@ -13,54 +13,14 @@ namespace VExp
             ExpVectorArithmetic();
             VisualizationVectorSum(size);
 
+            ExpVectorFunctions();
+
             ExpVectorCross();
             VisualizationVectorCross(size);
 
             ExpVectorDimensionalityChanges();
-            ExpVectorGeometry();
 
             Console.ReadLine();
-        }
-
-        public static void ExpVectorCross()
-        {
-            Vector cross2d = Vector.Cross(new Vector(1, 0));
-            Vector cross3d = Vector.Cross(new Vector(1, 0, 0), new Vector(0, 1, 0));
-            Vector cross4d = Vector.Cross(new Vector(1, 0, 0, 0), new Vector(0, 1, 0, 0), new Vector(0, 0, 1, 0));
-        }
-
-        private static void VisualizationVectorCross(Vector size)
-        {
-            using (Render render = new Render(size))
-            {
-                render.DrawAxes();
-
-                Vector q = Vector.Normalize(new Vector(-0.2, 0.3, -0.3));
-                DrawLine(render, q, Color.Green);
-
-                Vector r = Vector.Normalize(new Vector(0.4, 0.4, 0.1));
-                DrawLine(render, r, Color.Green);
-
-                Vector cross = Vector.Cross(q, r);
-                DrawLine(render, cross, Color.Blue);
-
-                render.Save(@"..\..\img\cross.png");
-            }
-        }
-
-        private static void ExpVectorDimensionalityChanges()
-        {
-            Vector addDimension = Vector.Insert(new Vector(2, 2), 0, 1);
-            Vector removeDimension = Vector.Remove(new Vector(2, 0, 2), 1);
-
-            Vector prefixDimension = Vector.Prefix(new Vector(2, 2), 1);
-            Vector unprefixDimension = Vector.UnPrefix(new Vector(1, 2, 2));
-
-            Vector postfixDimension = Vector.Postfix(new Vector(2, 2), 1);
-            Vector unpostfixDimension = Vector.UnPostfix(new Vector(2, 2, 1));
-
-            Vector[] swap1 = Vector.Swap(new Vector(1, 2, 3));
-            Vector[] swap2 = Vector.Swap(new Vector(1, 2, 3), new Vector(4, 5, 6));
         }
 
         private static void ExpVectorArithmetic()
@@ -103,15 +63,6 @@ namespace VExp
 
             Vector inv = -new Vector(1, -2, 3);
             // inv is now [-1, 2, -3]
-
-            Vector min1 = Vector.Min(new Vector(-1, 1, -1), new Vector(1, -1, 1));
-            // min1 is now [-1, -1, -1]
-
-            Vector min2 = Vector.Min(new Vector(1, 2, 3), new Vector(1, -1, 1), new Vector(5, 1, -1));
-            // min2 is now [1, -1, -1]
-
-            Vector max = Vector.Max(new Vector(-1, 1, -1), new Vector(1, -1, 1));
-            // max is now [1, 1, 1]
         }
 
         private static void VisualizationVectorSum(Vector size)
@@ -133,10 +84,66 @@ namespace VExp
             }
         }
 
-        private static void ExpVectorGeometry()
+        private static void ExpVectorFunctions()
         {
-            Vector normalize = Vector.Normalize(new Vector(1, 1));
+            Vector min1 = Vector.Min(new Vector(-1, 1, -1), new Vector(1, -1, 1));
+            // min1 is now [-1, -1, -1]
+
+            Vector min2 = Vector.Min(new Vector(1, 2, 3), new Vector(1, -1, 1), new Vector(5, 1, -1));
+            // min2 is now [1, -1, -1]
+
+            Vector max = Vector.Max(new Vector(-1, 1, -1), new Vector(1, -1, 1));
+            // max is now [1, 1, 1]
+
+            Vector nor = Vector.Normalize(new Vector(12, 0, 0));
+            // nor is now [1, 0, 0]
+
             double dot = Vector.Dot(new Vector(1, 0), new Vector(0.5, 0.5));
+            // dot is now 0.5
+
+            double diff = Vector.AngleDifference(new Vector(0, 1), Vector.Create(2, 0), new Vector(1, 0));
+            // diff is now half PI
+        }
+
+        public static void ExpVectorCross()
+        {
+            Vector cross2d = Vector.Cross(new Vector(1, 0));
+            Vector cross3d = Vector.Cross(new Vector(1, 0, 0), new Vector(0, 1, 0));
+            Vector cross4d = Vector.Cross(new Vector(1, 0, 0, 0), new Vector(0, 1, 0, 0), new Vector(0, 0, 1, 0));
+        }
+
+        private static void VisualizationVectorCross(Vector size)
+        {
+            using (Render render = new Render(size))
+            {
+                render.DrawAxes();
+
+                Vector q = Vector.Normalize(new Vector(-0.2, 0.3, -0.3));
+                DrawLine(render, q, Color.Green);
+
+                Vector r = Vector.Normalize(new Vector(0.4, 0.4, 0.1));
+                DrawLine(render, r, Color.Green);
+
+                Vector cross = Vector.Cross(q, r);
+                DrawLine(render, cross, Color.Blue);
+
+                render.Save(@"..\..\img\cross.png");
+            }
+        }
+
+        private static void ExpVectorDimensionalityChanges()
+        {
+            Vector addDimension = Vector.Insert(new Vector(2, 2), 0, 1);
+            Vector removeDimension = Vector.Remove(new Vector(2, 0, 2), 1);
+
+            Vector prefixDimension = Vector.Prefix(new Vector(2, 2), 1);
+            Vector unprefixDimension = Vector.UnPrefix(new Vector(1, 2, 2));
+
+            Vector postfixDimension = Vector.Postfix(new Vector(2, 2), 1);
+            Vector unpostfixDimension = Vector.UnPostfix(new Vector(2, 2, 1));
+
+            Vector[] swap1 = Vector.Swap(new Vector(1, 2, 3));
+            Vector[] swap2 = Vector.Swap(new Vector(1, 2, 3), new Vector(4, 5, 6));
         }
 
         private static void DrawLine(Render render, Vector v, Color color)

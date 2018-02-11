@@ -19,9 +19,10 @@ Yet another, reinvented, multidimensional Vector library designed for work with 
 * Build project V (check project properties for output path, most likely ./bin/Debug/)
 * V.dll is now ready to be added as reference in your projects
 
-### Future
-* Documentation
-* In-depth samples and usage examples
+### Future / TODO
+* Function RotateAroundAxis should work in all dimensions (currently only in 3)
+
+---
 
 ### Samples
 Here are some usage examples that might be helpful. Code used for samples and images is available in VExp project.
@@ -41,7 +42,7 @@ Vector add3 = 2 + new Vector(2, 1);
 ```
 
 Visualization of two 3 dimensional vectors (in green) resulting in third vector as a sum (in blue)
-![sum_chart](https://github.com/CreoOne/V/blob/master/VExp/img/sum.png "3 dimensional isometric chart with 3 vectors represented as a lines")
+![sum_chart](../blob/master/VExp/img/sum.png "3 dimensional isometric chart with 3 vectors represented as a lines")
 
 ##### Subtraction
 ```csharp
@@ -88,6 +89,7 @@ Vector inv = -new Vector(1, -2, 3);
 #### Functions
 
 ##### Min / Max
+Produces vector with minimal/maximal values in every dimension.
 ```csharp
 Vector min1 = Vector.Min(new Vector(-1, 1, -1), new Vector(1, -1, 1));
 // min1 is now [-1, -1, -1]
@@ -97,4 +99,25 @@ Vector min2 = Vector.Min(new Vector(1, 2, 3), new Vector(1, -1, 1), new Vector(5
 
 Vector max = Vector.Max(new Vector(-1, 1, -1), new Vector(1, -1, 1));
 // max is now [1, 1, 1]
+```
+
+##### Normalize
+Produces unit vector.
+```csharp
+Vector nor = Vector.Normalize(new Vector(12, 0, 0));
+// nor is now [1, 0, 0]
+```
+
+##### Dot
+Produces dot product of two vectors.
+```csharp
+double dot = Vector.Dot(new Vector(1, 0), new Vector(0.5, 0.5));
+// dot is now 0.5
+```
+
+##### Dot
+Produces angle difference between two vectors (in radians)
+```csharp
+double diff = Vector.AngleDifference(new Vector(0, 1), Vector.Create(2, 0), new Vector(1, 0));
+// diff is now half PI
 ```
