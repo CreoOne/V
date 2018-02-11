@@ -183,8 +183,13 @@ namespace VExp
         public static void ExpVectorCross()
         {
             Vector cross2d = Vector.Cross(new Vector(1, 0));
+            // cross2d is now [0, -1]
+
             Vector cross3d = Vector.Cross(new Vector(1, 0, 0), new Vector(0, 1, 0));
+            // cross3d is now [0, 0, 1]
+
             Vector cross4d = Vector.Cross(new Vector(1, 0, 0, 0), new Vector(0, 1, 0, 0), new Vector(0, 0, 1, 0));
+            // cross4d is now [0, 0, 0, -1]
         }
 
         private static void VisualizationVectorCross(Vector size)
