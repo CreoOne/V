@@ -154,7 +154,7 @@ namespace VExp
                 Vector sourceColor = ColorToVector(Color.Green);
                 Vector destinationColor = ColorToVector(Color.Blue);
 
-                foreach (int index in Enumerable.Range(0, steps))
+                foreach (int index in Enumerable.Range(1, steps))
                 {
                     double position = index / (double)steps;
                     Vector currentPosition = Vector.RotateAroundAxis(q, axis, position * angle);
