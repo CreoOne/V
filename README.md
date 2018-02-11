@@ -146,9 +146,9 @@ bool notCloseEnough = Vector.CloseEnough(new Vector(0, 1, -0.1), new Vector(0, 1
 ```
 
 ##### Cross
-Produces vector that is perpendicular to all provided vectors.
+   Produces vector that is perpendicular to all provided vectors.
 
-There is specific amount of vectors that is required for this function to work.
+   There is specific amount of vectors that is required for this function to work.
 ```csharp
 Vector cross2d = Vector.Cross(new Vector(1, 0));
 // cross2d is now [0, -1]
@@ -160,5 +160,5 @@ Vector cross4d = Vector.Cross(new Vector(1, 0, 0, 0), new Vector(0, 1, 0, 0), ne
 // cross4d is now [0, 0, 0, -1]
 ```
 
-Visualization of two 3 dimensional vectors (in green) resulting in third vector as a cross product (in blue)
+   Visualization of two 3 dimensional vectors (in green) resulting in third vector as a cross product (in blue)
 ![cross_chart](./VExp/img/cross.png "3 dimensional isometric chart with 3 vectors represented as a lines")
