@@ -56,6 +56,9 @@ Vector sub3 = 2 - new Vector(2, 1);
 // sub3 is now [0, 1]
 ```
 
+Visualization of two 3 dimensional vectors (in green) resulting in third vector as a diffrence (in blue)
+![sub_chart](./VExp/img/sub.png "3 dimensional isometric chart with 3 vectors represented as a lines")
+
 ##### Multiplication
 ```csharp
 Vector mul1 = new Vector(1, 2) * new Vector(2, 1);

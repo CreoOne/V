@@ -12,6 +12,7 @@ namespace VExp
 
             ExpVectorArithmetic();
             VisualizationVectorSum(size);
+            VisualizationVectorSub(size);
 
             ExpVectorFunctions();
 
@@ -81,6 +82,25 @@ namespace VExp
                 DrawLine(render, sum, Color.Blue);
 
                 render.Save(@"..\..\img\sum.png");
+            }
+        }
+
+        private static void VisualizationVectorSub(Vector size)
+        {
+            using (Render render = new Render(size))
+            {
+                render.DrawAxes();
+
+                Vector q = new Vector(-0.4, 0.6, -0.5);
+                DrawLine(render, q, Color.Green);
+
+                Vector r = new Vector(0.4, 0.3, 0.2);
+                DrawLine(render, r, Color.Green);
+
+                Vector sub = q - r;
+                DrawLine(render, sub, Color.Blue);
+
+                render.Save(@"..\..\img\sub.png");
             }
         }
 
