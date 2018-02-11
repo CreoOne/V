@@ -145,10 +145,29 @@ bool notCloseEnough = Vector.CloseEnough(new Vector(0, 1, -0.1), new Vector(0, 1
 // notCloseEnough is False
 ```
 
-##### Cross
-   Produces vector that is perpendicular to all provided vectors.
+##### Lerp
+Produces interpolation of two vectors.
+```csharp
+Vector inter = Vector.Lerp(new Vector(-0.8, 0.3, -0.5), new Vector(0.4, 0.5, 0.3), 0.5);
+// inter is now [-0.2, 0.4, -0.1]
+```
 
-   There is specific amount of vectors that is required for this function to work.
+Visualization of two 3 dimensional vectors (in green) resulting in third vector (in blue)
+![lerpIn_chart](./VExp/img/lerpIn.png "3 dimensional isometric chart with 3 vectors represented as a lines")
+
+Lerp can also be used for extrapolation.
+```csharp
+Vector extra = Vector.Lerp(new Vector(-0.8, 0.3, -0.5), new Vector(0.4, 0.5, 0.3), 1.2);
+// extra is now [0.64, 0.54, 0.46]
+```
+
+Visualization of two 3 dimensional vectors (in green) resulting in third vector (in blue)
+![lerpEx_chart](./VExp/img/lerpEx.png "3 dimensional isometric chart with 3 vectors represented as a lines")
+
+##### Cross
+Produces vector that is perpendicular to all provided vectors.
+
+There is specific amount of vectors that is required for this function to work.
 ```csharp
 Vector cross2d = Vector.Cross(new Vector(1, 0));
 // cross2d is now [0, -1]
@@ -160,5 +179,5 @@ Vector cross4d = Vector.Cross(new Vector(1, 0, 0, 0), new Vector(0, 1, 0, 0), ne
 // cross4d is now [0, 0, 0, -1]
 ```
 
-   Visualization of two 3 dimensional vectors (in green) resulting in third vector as a cross product (in blue)
+Visualization of two 3 dimensional vectors (in green) resulting in third vector as a cross product (in blue)
 ![cross_chart](./VExp/img/cross.png "3 dimensional isometric chart with 3 vectors represented as a lines")

@@ -17,6 +17,8 @@ namespace VExp
 
             ExpVectorFunctions();
             VisualizationVectorRotateAroundAxis(size);
+            VisualizationVectorLinearInterpolation(size);
+            VisualizationVectorLinearExtrapolation(size);
 
             ExpVectorCross();
             VisualizationVectorCross(size);
@@ -134,6 +136,12 @@ namespace VExp
 
             bool notCloseEnough = Vector.CloseEnough(new Vector(0, 1, -0.1), new Vector(0, 1, 0.1), 0.01);
             // notCloseEnough is False
+
+            Vector inter = Vector.Lerp(new Vector(-0.8, 0.3, -0.5), new Vector(0.4, 0.5, 0.3), 0.5);
+            // inter is now [-0.2, 0.4, -0.1]
+
+            Vector extra = Vector.Lerp(new Vector(-0.8, 0.3, -0.5), new Vector(0.4, 0.5, 0.3), 1.2);
+            // extra is now [0.64, 0.54, 0.46]
         }
 
         private static void VisualizationVectorRotateAroundAxis(Vector size)
@@ -167,6 +175,87 @@ namespace VExp
                 DrawLine(render, raa, Color.Blue);
 
                 render.Save(@"..\..\img\raa.png");
+            }
+        }
+
+        private static void VisualizationVectorLinearInterpolation(Vector size)
+        {
+            using (Render render = new Render(size))
+            {
+                render.DrawAxes();
+
+                Vector q = new Vector(-0.8, 0.3, -0.5);
+                DrawLine(render, q, Color.Green);
+
+                Vector r = new Vector(0.4, 0.5, 0.3);
+                DrawLine(render, r, Color.Green);
+
+                Vector half = Vector.Lerp(q, r, 0.5);
+                DrawLine(render, half, Color.Blue);
+
+                int steps = 50;
+                Vector sourceColor = ColorToVector(Color.Green);
+                Vector destinationColor = ColorToVector(Color.Blue);
+
+                Vector lastPosition = q;
+
+                foreach (int index in Enumerable.Range(1, steps))
+                {
+                    double position = index / (double)steps;
+                    Vector currentPosition = Vector.Lerp(q, half, position);
+                    Vector currentColor = Vector.Lerp(sourceColor, destinationColor, position);
+                    render.DrawLine(lastPosition, currentPosition, Color.FromArgb(100, VectorToColor(currentColor)));
+                    lastPosition = currentPosition;
+                }
+
+                lastPosition = r;
+
+                foreach (int index in Enumerable.Range(1, steps))
+                {
+                    double position = index / (double)steps;
+                    Vector currentPosition = Vector.Lerp(r, half, position);
+                    Vector currentColor = Vector.Lerp(sourceColor, destinationColor, position);
+                    render.DrawLine(lastPosition, currentPosition, Color.FromArgb(100, VectorToColor(currentColor)));
+                    lastPosition = currentPosition;
+                }
+
+                render.Save(@"..\..\img\lerpIn.png");
+            }
+        }
+
+        private static void VisualizationVectorLinearExtrapolation(Vector size)
+        {
+            using (Render render = new Render(size))
+            {
+                render.DrawAxes();
+
+                Vector q = new Vector(-0.8, 0.3, -0.5);
+                DrawLine(render, q, Color.Green);
+
+                Vector r = new Vector(0.4, 0.5, 0.3);
+                DrawLine(render, r, Color.Green);
+
+                Vector extra = Vector.Lerp(q, r, 1.2);
+                DrawLine(render, extra, Color.Blue);
+
+                int steps = 50;
+                Vector sourceColor = ColorToVector(Color.Green);
+                Vector destinationColor = ColorToVector(Color.Blue);
+
+                render.DrawLine(q, r, Color.FromArgb(100, VectorToColor(sourceColor)));
+
+                Vector lastPosition = r;
+
+                foreach (int index in Enumerable.Range(1, steps))
+                {
+                    double position = index / (double)steps;
+                    Vector currentPosition = Vector.Lerp(r, extra, position);
+                    Vector currentColor = Vector.Lerp(sourceColor, destinationColor, position);
+                    render.DrawLine(lastPosition, currentPosition, Color.FromArgb(100, VectorToColor(currentColor)));
+                    lastPosition = currentPosition;
+                }
+
+                render.Save(@"..\..\img\lerpEx.png");
             }
         }
 
