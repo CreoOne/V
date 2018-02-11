@@ -132,7 +132,7 @@ Vector raa = Vector.RotateAroundAxis(new Vector(1, 0, 0), new Vector(0, 1, 0), M
 // raa is now [0, 0, 1]
 ```
 
-Visualization of 3 dimensional vector (in green) being rotated around axis (in red) resulting in third vector (in blue)
+Visualization of 3 dimensional vector (in green) being rotated 180° around axis (in red) resulting in third vector (in blue)
 ![raa_chart](./VExp/img/raa.png "3 dimensional isometric chart with 3 vectors represented as a lines")
 
 ##### CloseEnough
