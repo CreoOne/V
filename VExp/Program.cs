@@ -104,8 +104,14 @@ namespace VExp
             Vector inv = -new Vector(1, -2, 3);
             // inv is now [-1, 2, -3]
 
-            Vector min = Vector.Min(new Vector(-1, 1, -1), new Vector(1, -1, 1));
+            Vector min1 = Vector.Min(new Vector(-1, 1, -1), new Vector(1, -1, 1));
+            // min1 is now [-1, -1, -1]
+
+            Vector min2 = Vector.Min(new Vector(1, 2, 3), new Vector(1, -1, 1), new Vector(5, 1, -1));
+            // min2 is now [1, -1, -1]
+
             Vector max = Vector.Max(new Vector(-1, 1, -1), new Vector(1, -1, 1));
+            // max is now [1, 1, 1]
         }
 
         private static void VisualizationVectorSum(Vector size)

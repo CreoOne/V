@@ -84,3 +84,17 @@ Vector div3 = 2 / new Vector(2, 1);
 Vector inv = -new Vector(1, -2, 3);
 // inv is now [-1, 2, -3]
 ```
+
+#### Functions
+
+##### Min / Max
+```csharp
+Vector min1 = Vector.Min(new Vector(-1, 1, -1), new Vector(1, -1, 1));
+// min1 is now [-1, -1, -1]
+
+Vector min2 = Vector.Min(new Vector(1, 2, 3), new Vector(1, -1, 1), new Vector(5, 1, -1));
+// min2 is now [1, -1, -1]
+
+Vector max = Vector.Max(new Vector(-1, 1, -1), new Vector(1, -1, 1));
+// max is now [1, 1, 1]
+```
