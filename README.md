@@ -116,8 +116,25 @@ double dot = Vector.Dot(new Vector(1, 0), new Vector(0.5, 0.5));
 ```
 
 ##### AngleDifference
-Produces angle difference between two vectors (in radians)
+Produces angle difference between two vectors (in radians).
 ```csharp
 double diff = Vector.AngleDifference(new Vector(0, 1), Vector.Create(2, 0), new Vector(1, 0));
 // diff is now half PI
+```
+
+##### RotateAroundAxis
+Rotates vector around specified axis by angle (in radians).
+```csharp
+Vector raa = Vector.RotateAroundAxis(new Vector(1, 0, 0), new Vector(0, 1, 0), Math.PI / 2d);
+// raa is now [0, 0, 1]
+```
+
+##### CloseEnough
+Checks proximity of two vectors with specified tolerance.
+```csharp
+bool closeEnough = Vector.CloseEnough(new Vector(0, 1, -0.1), new Vector(0, 1, 0.1), 0.5);
+// closeEnough is True
+
+bool notCloseEnough = Vector.CloseEnough(new Vector(0, 1, -0.1), new Vector(0, 1, 0.1), 0.01);
+// notCloseEnough is False
 ```

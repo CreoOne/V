@@ -103,6 +103,15 @@ namespace VExp
 
             double diff = Vector.AngleDifference(new Vector(0, 1), Vector.Create(2, 0), new Vector(1, 0));
             // diff is now half PI
+
+            Vector raa = Vector.RotateAroundAxis(new Vector(1, 0, 0), new Vector(0, 1, 0), Math.PI / 2d);
+            // raa is now [0, 0, 1]
+
+            bool closeEnough = Vector.CloseEnough(new Vector(0, 1, -0.1), new Vector(0, 1, 0.1), 0.5);
+            // closeEnough is True
+
+            bool notCloseEnough = Vector.CloseEnough(new Vector(0, 1, -0.1), new Vector(0, 1, 0.1), 0.01);
+            // notCloseEnough is False
         }
 
         public static void ExpVectorCross()
