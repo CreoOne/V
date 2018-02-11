@@ -22,3 +22,24 @@ Yet another, reinvented, multidimensional Vector library designed for work with 
 ### Future
 * Documentation
 * In-depth samples and usage examples
+
+### Samples
+Here are some usage examples that might be helpful
+
+#### Vector arithmetic operators
+
+##### Addition
+```csharp
+Vector add1 = new Vector(1, 2) + new Vector(2, 1);
+// add1 is now [3, 3]
+
+Vector add2 = new Vector(1, 2) + 2;
+// add2 is now [3, 4]
+
+Vector add3 = 2 + new Vector(2, 1);
+// add3 is now [4, 3]
+```
+
+Visualization of two 3 dimensional vectors (in green) resulting in third vector as a sum (in blue)
+[[https://github.com/CreoOne/V/blob/master/VExp/img/sum.png|alt=addition_visualization]]
+

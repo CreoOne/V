@@ -11,12 +11,12 @@ namespace VExp
             Vector size = new Vector(400, 300);
 
             ExpVectorCross();
-            VisualisationVectorCross(size);
+            VisualizationVectorCross(size);
 
             ExpVectorDimensionalityChanges();
 
             ExpVectorArithmetic();
-            VisualisationVectorSum(size);
+            VisualizationVectorSum(size);
 
             ExpVectorGeometry();
 
@@ -30,7 +30,7 @@ namespace VExp
             Vector cross4d = Vector.Cross(new Vector(1, 0, 0, 0), new Vector(0, 1, 0, 0), new Vector(0, 0, 1, 0));
         }
 
-        private static void VisualisationVectorCross(Vector size)
+        private static void VisualizationVectorCross(Vector size)
         {
             using (Render render = new Render(size))
             {
@@ -88,7 +88,7 @@ namespace VExp
             Vector max = Vector.Max(new Vector(-1, 1, -1), new Vector(1, -1, 1));
         }
 
-        private static void VisualisationVectorSum(Vector size)
+        private static void VisualizationVectorSum(Vector size)
         {
             using (Render render = new Render(size))
             {
