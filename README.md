@@ -42,7 +42,7 @@ Vector add3 = 2 + new Vector(2, 1);
 ```
 
 Visualization of two 3 dimensional vectors (in green) resulting in third vector as a sum (in blue)
-![sum_chart](../blob/master/VExp/img/sum.png "3 dimensional isometric chart with 3 vectors represented as a lines")
+![sum_chart](./VExp/img/sum.png "3 dimensional isometric chart with 3 vectors represented as a lines")
 
 ##### Subtraction
 ```csharp
