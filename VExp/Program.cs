@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using V;
 
 namespace VExp
@@ -15,6 +16,7 @@ namespace VExp
             VisualizationVectorSub(size);
 
             ExpVectorFunctions();
+            VisualizationVectorRotateAroundAxis(size);
 
             ExpVectorCross();
             VisualizationVectorCross(size);
@@ -132,6 +134,50 @@ namespace VExp
 
             bool notCloseEnough = Vector.CloseEnough(new Vector(0, 1, -0.1), new Vector(0, 1, 0.1), 0.01);
             // notCloseEnough is False
+        }
+
+        private static void VisualizationVectorRotateAroundAxis(Vector size)
+        {
+            using (Render render = new Render(size))
+            {
+                render.DrawAxes();
+
+                Vector q = new Vector(0.5, 0.2, 0.6);
+                DrawLine(render, q, Color.Green);
+
+                Vector axis = new Vector(0.2, 0.5, -0.1);
+                DrawLine(render, axis, Color.Red);
+
+                double angle = -Math.PI;
+                int steps = 100;
+                Vector lastPosition = q;
+                Vector sourceColor = ColorToVector(Color.Green);
+                Vector destinationColor = ColorToVector(Color.Blue);
+
+                foreach (int index in Enumerable.Range(0, steps))
+                {
+                    double position = index / (double)steps;
+                    Vector currentPosition = Vector.RotateAroundAxis(q, axis, position * angle);
+                    Vector currentColor = Vector.Lerp(sourceColor, destinationColor, position);
+                    render.DrawLine(lastPosition, currentPosition, Color.FromArgb(100, VectorToColor(currentColor)));
+                    lastPosition = currentPosition;
+                }
+
+                Vector raa = Vector.RotateAroundAxis(q, axis, angle);
+                DrawLine(render, raa, Color.Blue);
+
+                render.Save(@"..\..\img\raa.png");
+            }
+        }
+
+        private static Color VectorToColor(Vector v)
+        {
+            return Color.FromArgb((int)v[0], (int)v[1], (int)v[2]);
+        }
+
+        private static Vector ColorToVector(Color color)
+        {
+            return new Vector(color.R, color.G, color.B);
         }
 
         public static void ExpVectorCross()
