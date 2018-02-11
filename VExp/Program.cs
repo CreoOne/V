@@ -7,6 +7,8 @@ namespace VExp
 {
     class Program
     {
+        private const int TraceAlpha = 80;
+
         static void Main(string[] args)
         {
             Vector size = new Vector(400, 300);
@@ -157,19 +159,8 @@ namespace VExp
                 DrawLine(render, axis, Color.Red);
 
                 double angle = -Math.PI;
-                int steps = 100;
-                Vector lastPosition = q;
-                Vector sourceColor = ColorToVector(Color.Green);
-                Vector destinationColor = ColorToVector(Color.Blue);
-
-                foreach (int index in Enumerable.Range(1, steps))
-                {
-                    double position = index / (double)steps;
-                    Vector currentPosition = Vector.RotateAroundAxis(q, axis, position * angle);
-                    Vector currentColor = Vector.Lerp(sourceColor, destinationColor, position);
-                    render.DrawLine(lastPosition, currentPosition, Color.FromArgb(100, VectorToColor(currentColor)));
-                    lastPosition = currentPosition;
-                }
+                DrawTrace(render, (p) => Vector.RotateAroundAxis(q, axis, p * -angle), Color.Silver, Color.Silver, 50);
+                DrawTrace(render, (p) => Vector.RotateAroundAxis(q, axis, p * angle), Color.Green, Color.Blue, 50);
 
                 Vector raa = Vector.RotateAroundAxis(q, axis, angle);
                 DrawLine(render, raa, Color.Blue);
@@ -193,31 +184,8 @@ namespace VExp
                 Vector half = Vector.Lerp(q, r, 0.5);
                 DrawLine(render, half, Color.Blue);
 
-                int steps = 50;
-                Vector sourceColor = ColorToVector(Color.Green);
-                Vector destinationColor = ColorToVector(Color.Blue);
-
-                Vector lastPosition = q;
-
-                foreach (int index in Enumerable.Range(1, steps))
-                {
-                    double position = index / (double)steps;
-                    Vector currentPosition = Vector.Lerp(q, half, position);
-                    Vector currentColor = Vector.Lerp(sourceColor, destinationColor, position);
-                    render.DrawLine(lastPosition, currentPosition, Color.FromArgb(100, VectorToColor(currentColor)));
-                    lastPosition = currentPosition;
-                }
-
-                lastPosition = r;
-
-                foreach (int index in Enumerable.Range(1, steps))
-                {
-                    double position = index / (double)steps;
-                    Vector currentPosition = Vector.Lerp(r, half, position);
-                    Vector currentColor = Vector.Lerp(sourceColor, destinationColor, position);
-                    render.DrawLine(lastPosition, currentPosition, Color.FromArgb(100, VectorToColor(currentColor)));
-                    lastPosition = currentPosition;
-                }
+                DrawTrace(render, (p) => Vector.Lerp(q, half, p), Color.Green, Color.Blue, 10);
+                DrawTrace(render, (p) => Vector.Lerp(r, half, p), Color.Green, Color.Blue, 10);
 
                 render.Save(@"..\..\img\lerpIn.png");
             }
@@ -238,22 +206,8 @@ namespace VExp
                 Vector extra = Vector.Lerp(q, r, 1.2);
                 DrawLine(render, extra, Color.Blue);
 
-                int steps = 50;
-                Vector sourceColor = ColorToVector(Color.Green);
-                Vector destinationColor = ColorToVector(Color.Blue);
-
-                render.DrawLine(q, r, Color.FromArgb(100, VectorToColor(sourceColor)));
-
-                Vector lastPosition = r;
-
-                foreach (int index in Enumerable.Range(1, steps))
-                {
-                    double position = index / (double)steps;
-                    Vector currentPosition = Vector.Lerp(r, extra, position);
-                    Vector currentColor = Vector.Lerp(sourceColor, destinationColor, position);
-                    render.DrawLine(lastPosition, currentPosition, Color.FromArgb(100, VectorToColor(currentColor)));
-                    lastPosition = currentPosition;
-                }
+                render.DrawLine(q, r, Color.FromArgb(TraceAlpha, Color.Green));
+                DrawTrace(render, (p) => Vector.Lerp(r, extra, p), Color.Green, Color.Blue, 10);
 
                 render.Save(@"..\..\img\lerpEx.png");
             }
@@ -331,6 +285,28 @@ namespace VExp
             render.DrawLine(vOnXZ, vOnZ, color, dotted: true);
 
             render.DrawText(v, Vector.Map(v, (d) => Math.Round(d, 3)).ToString(), color);
+        }
+
+        private static void DrawTrace(Render render, Func<double, Vector> traceFunction, Color qColor, Color rColor, int steps)
+        {
+            Vector sourceColor = ColorToVector(qColor);
+            Vector destinationColor = ColorToVector(rColor);
+
+            Vector lastPosition = default(Vector);
+
+            foreach (int index in Enumerable.Range(0, steps + 1))
+            {
+                double position = index / (double)steps;
+                Vector currentPosition = traceFunction(position);
+
+                if (index > 0)
+                {
+                    Vector currentColor = Vector.Lerp(sourceColor, destinationColor, position);
+                    render.DrawLine(lastPosition, currentPosition, Color.FromArgb(TraceAlpha, VectorToColor(currentColor)));
+                }
+
+                lastPosition = currentPosition;
+            }
         }
     }
 }
