@@ -24,7 +24,7 @@ Yet another, reinvented, multidimensional Vector library designed for work with 
 * In-depth samples and usage examples
 
 ### Samples
-Here are some usage examples that might be helpful
+Here are some usage examples that might be helpful. Code used for samples and images is available in VExp project.
 
 #### Vector arithmetic operators
 
@@ -41,5 +41,46 @@ Vector add3 = 2 + new Vector(2, 1);
 ```
 
 Visualization of two 3 dimensional vectors (in green) resulting in third vector as a sum (in blue)
-[[https://github.com/CreoOne/V/blob/master/VExp/img/sum.png|alt=addition_visualization]]
+![sum_chart](https://github.com/CreoOne/V/blob/master/VExp/img/sum.png "3 dimensional isometric chart with 3 vectors represented as a lines")
 
+##### Subtraction
+```csharp
+Vector sub1 = new Vector(1, 2) - new Vector(2, 1);
+// sub1 is now [1, 1]
+
+Vector sub2 = new Vector(1, 2) - 2;
+// sub2 is now [-1, 0]
+
+Vector sub3 = 2 - new Vector(2, 1);
+// sub3 is now [0, 1]
+```
+
+##### Multiplication
+```csharp
+Vector mul1 = new Vector(1, 2) * new Vector(2, 1);
+// mul1 is now [2, 2]
+
+Vector mul2 = new Vector(1, 2) * 2;
+// mul2 is now [2, 4]
+
+Vector mul3 = 2 * new Vector(2, 1);
+// mul3 is now [4, 2]
+```
+
+##### Division
+```csharp
+Vector div1 = new Vector(1, 2) / new Vector(2, 1);
+// div1 is now [0.5, 2]
+
+Vector div2 = new Vector(1, 2) / 2;
+// div2 is now [0.5, 1]
+
+Vector div3 = 2 / new Vector(2, 1);
+// div 3 is now [1, 2]
+```
+
+##### Inversion
+```csharp
+Vector inv = -new Vector(1, -2, 3);
+// inv is now [-1, 2, -3]
+```

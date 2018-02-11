@@ -10,14 +10,13 @@ namespace VExp
         {
             Vector size = new Vector(400, 300);
 
+            ExpVectorArithmetic();
+            VisualizationVectorSum(size);
+
             ExpVectorCross();
             VisualizationVectorCross(size);
 
             ExpVectorDimensionalityChanges();
-
-            ExpVectorArithmetic();
-            VisualizationVectorSum(size);
-
             ExpVectorGeometry();
 
             Console.ReadLine();
@@ -67,22 +66,43 @@ namespace VExp
         private static void ExpVectorArithmetic()
         {
             Vector add1 = new Vector(1, 2) + new Vector(2, 1);
+            // add1 is now [3, 3]
+
             Vector add2 = new Vector(1, 2) + 2;
+            // add2 is now [3, 4]
+
             Vector add3 = 2 + new Vector(2, 1);
+            // add3 is now [4, 3]
 
             Vector sub1 = new Vector(1, 2) - new Vector(2, 1);
+            // sub1 is now [1, 1]
+
             Vector sub2 = new Vector(1, 2) - 2;
+            // sub2 is now [-1, 0]
+
             Vector sub3 = 2 - new Vector(2, 1);
+            // sub3 is now [0, 1]
 
             Vector mul1 = new Vector(1, 2) * new Vector(2, 1);
+            // mul1 is now [2, 2]
+
             Vector mul2 = new Vector(1, 2) * 2;
+            // mul2 is now [2, 4]
+
             Vector mul3 = 2 * new Vector(2, 1);
+            // mul3 is now [4, 2]
 
             Vector div1 = new Vector(1, 2) / new Vector(2, 1);
-            Vector div2 = new Vector(1, 2) / 2;
-            Vector div3 = 2 / new Vector(2, 1);
+            // div1 is now [0.5, 2]
 
-            Vector invert = -new Vector(1, 2, 3);
+            Vector div2 = new Vector(1, 2) / 2;
+            // div2 is now [0.5, 1]
+
+            Vector div3 = 2 / new Vector(2, 1);
+            // div 3 is now [1, 2]
+
+            Vector inv = -new Vector(1, -2, 3);
+            // inv is now [-1, 2, -3]
 
             Vector min = Vector.Min(new Vector(-1, 1, -1), new Vector(1, -1, 1));
             Vector max = Vector.Max(new Vector(-1, 1, -1), new Vector(1, -1, 1));
