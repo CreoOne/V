@@ -115,7 +115,7 @@ double dot = Vector.Dot(new Vector(1, 0), new Vector(0.5, 0.5));
 // dot is now 0.5
 ```
 
-##### Dot
+##### AngleDifference
 Produces angle difference between two vectors (in radians)
 ```csharp
 double diff = Vector.AngleDifference(new Vector(0, 1), Vector.Create(2, 0), new Vector(1, 0));
