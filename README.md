@@ -1,4 +1,7 @@
 # V
+[![Build status](https://ci.appveyor.com/api/projects/status/8tm37ghsgh4wq9fn?svg=true)](https://ci.appveyor.com/project/CreoOne/v)
+[![Coverage Status](https://coveralls.io/repos/github/CreoOne/V/badge.svg?branch=master)](https://coveralls.io/github/CreoOne/V?branch=master)
+  
 Yet another, reinvented, multidimensional Vector library designed for work with changing dimensionality.
 
 ### Requirements
@@ -132,7 +135,7 @@ Vector raa = Vector.RotateAroundAxis(new Vector(1, 0, 0), new Vector(0, 1, 0), M
 // raa is now [0, 0, 1]
 ```
 
-Visualization of 3 dimensional vector (in green) being rotated 180° around axis (in red) resulting in third vector (in blue)
+Visualization of 3 dimensional vector (in green) being rotated 180Â° around axis (in red) resulting in third vector (in blue)
 ![raa_chart](./VExp/img/raa.png "3 dimensional isometric chart with 3 vectors represented as a lines")
 
 ##### CloseEnough
