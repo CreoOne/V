@@ -44,7 +44,7 @@ namespace V
         public Vector(params double[] values)
         {
             Values = values ?? throw new ArgumentNullException(nameof(values));
-            Dimensions = values.Count();
+            Dimensions = values.Length;
         }
 
         /// <summary>
@@ -78,12 +78,6 @@ namespace V
         [DebuggerStepThrough]
         public static Vector Cross(params Vector[] vectors)
         {
-            if (vectors == null)
-                throw new ArgumentNullException(nameof(vectors));
-
-            if (vectors.Length == 0)
-                throw new InvalidOperationException();
-
             EnsureConsistentDimensionality(vectors);
 
             if (vectors[0].Dimensions != vectors.Length + 1)
@@ -98,12 +92,6 @@ namespace V
         [DebuggerStepThrough]
         public static double Det(params Vector[] vectors)
         {
-            if (vectors == null)
-                throw new ArgumentNullException(nameof(vectors));
-
-            if (vectors.Length == 0)
-                throw new InvalidOperationException();
-
             EnsureConsistentDimensionality(vectors);
 
             if (vectors[0].Dimensions != vectors.Length)
@@ -292,12 +280,6 @@ namespace V
         [DebuggerStepThrough]
         public static Vector[] Swap(params Vector[] vectors)
         {
-            if (vectors == null)
-                throw new ArgumentNullException(nameof(vectors));
-
-            if (vectors.Length == 0)
-                throw new ArgumentException();
-
             EnsureConsistentDimensionality(vectors);
 
             Vector[] result = new Vector[vectors[0].Dimensions];
