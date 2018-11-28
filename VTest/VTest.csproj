@@ -54,6 +54,7 @@
     <Compile Include="Construction.cs" />
     <Compile Include="Critical.cs" />
     <Compile Include="Operations.cs" />
+    <Compile Include="Operators.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

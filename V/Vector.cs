@@ -203,24 +203,32 @@ namespace V
         [DebuggerStepThrough]
         public static Vector operator +(Vector q, Vector r)
         {
+            EnsureConsistentDimensionality(q, r);
+
             return Merge(q, r, (a, b) => a + b);
         }
 
         [DebuggerStepThrough]
         public static Vector operator -(Vector q, Vector r)
         {
+            EnsureConsistentDimensionality(q, r);
+
             return Merge(q, r, (a, b) => a - b);
         }
 
         [DebuggerStepThrough]
         public static Vector operator *(Vector q, Vector r)
         {
+            EnsureConsistentDimensionality(q, r);
+
             return Merge(q, r, (a, b) => a * b);
         }
 
         [DebuggerStepThrough]
         public static Vector operator /(Vector q, Vector r)
         {
+            EnsureConsistentDimensionality(q, r);
+
             return Merge(q, r, (a, b) => a / b);
         }
 
