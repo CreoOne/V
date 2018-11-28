@@ -80,5 +80,26 @@ namespace VTest
                 Assert.AreEqual(new double[] { }, v.ToArray());
             }
         }
+
+        [Test]
+        public void IndexAccess()
+        {
+            {
+                Vector v = new Vector(0, 1, 2, 3);
+                Assert.AreEqual(4, v.Dimensions);
+                Assert.AreEqual(0, v[0]);
+                Assert.AreEqual(1, v[1]);
+                Assert.AreEqual(2, v[2]);
+                Assert.AreEqual(3, v[3]);
+                Assert.Throws<IndexOutOfRangeException>(() => v[4].ToString());
+                Assert.Throws<IndexOutOfRangeException>(() => v[-1].ToString());
+            }
+
+            {
+                Vector v = new Vector();
+                Assert.AreEqual(0, v.Dimensions);
+                Assert.Throws<IndexOutOfRangeException>(() => v[0].ToString());
+            }
+        }
     }
 }
