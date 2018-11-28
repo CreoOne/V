@@ -72,5 +72,19 @@ namespace VTest
                 Assert.True(Vector.CloseEnough(new Vector(3), output[2], Precision));
             }
         }
+
+        [Test]
+        public void Insert()
+        {
+            Assert.That(Vector.CloseEnough(Vector.Insert(new Vector(), 1, 0), new Vector(1), Precision));
+            Assert.That(Vector.CloseEnough(Vector.Insert(new Vector(3, 3), 1, 1), new Vector(3, 1, 3), Precision));
+        }
+
+        [Test]
+        public void Remove()
+        {
+            Assert.That(Vector.CloseEnough(Vector.Remove(new Vector(1), 0), new Vector(), Precision));
+            Assert.That(Vector.CloseEnough(Vector.Remove(new Vector(3, 1, 3), 1), new Vector(3, 3), Precision));
+        }
     }
 }
