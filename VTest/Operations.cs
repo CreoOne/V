@@ -86,5 +86,29 @@ namespace VTest
             Assert.That(Vector.CloseEnough(Vector.Remove(new Vector(1), 0), new Vector(), Precision));
             Assert.That(Vector.CloseEnough(Vector.Remove(new Vector(3, 1, 3), 1), new Vector(3, 3), Precision));
         }
+
+        [Test]
+        public void Prefix()
+        {
+            Assert.That(Vector.CloseEnough(Vector.Prefix(new Vector(1, 2), 3), new Vector(3, 1, 2), Precision));
+        }
+
+        [Test]
+        public void Postfix()
+        {
+            Assert.That(Vector.CloseEnough(Vector.Postfix(new Vector(1, 2), 3), new Vector(1, 2, 3), Precision));
+        }
+
+        [Test]
+        public void UnPrefix()
+        {
+            Assert.That(Vector.CloseEnough(Vector.UnPrefix(new Vector(1, 2, 3)), new Vector(2, 3), Precision));
+        }
+
+        [Test]
+        public void UnPostfix()
+        {
+            Assert.That(Vector.CloseEnough(Vector.UnPostfix(new Vector(1, 2, 3)), new Vector(1, 2), Precision));
+        }
     }
 }
