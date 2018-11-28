@@ -1,6 +1,7 @@
 # V
 [![Build status](https://ci.appveyor.com/api/projects/status/8tm37ghsgh4wq9fn?svg=true)](https://ci.appveyor.com/project/CreoOne/v)
 [![Coverage Status](https://coveralls.io/repos/github/CreoOne/V/badge.svg?branch=master)](https://coveralls.io/github/CreoOne/V?branch=master)
+[![codecov](https://codecov.io/gh/CreoOne/V/branch/master/graph/badge.svg)](https://codecov.io/gh/CreoOne/V)
   
 Yet another, reinvented, multidimensional Vector library designed for work with changing dimensionality.
 
