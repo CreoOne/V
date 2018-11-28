@@ -530,6 +530,20 @@ namespace V
         #endregion
 
         [DebuggerStepThrough]
+        private static void EnsureConsistentDimensionality(Vector q, Vector r)
+        {
+            if (q.Dimensions != r.Dimensions)
+                throw new DimensionalityMismatchException();
+        }
+
+        [DebuggerStepThrough]
+        private static void EnsureConsistentDimensionality(Vector q, Vector r, Vector s)
+        {
+            if (q.Dimensions != r.Dimensions || r.Dimensions != s.Dimensions)
+                throw new DimensionalityMismatchException();
+        }
+
+        [DebuggerStepThrough]
         private static void EnsureConsistentDimensionality(params Vector[] vectors)
         {
             if (vectors == null || vectors.Length <= 1)
@@ -537,7 +551,7 @@ namespace V
 
             int dimensions = vectors[0].Dimensions;
 
-            foreach(Vector vector in vectors)
+            foreach(Vector vector in vectors.Skip(1))
                 if (dimensions != vector.Dimensions)
                     throw new DimensionalityMismatchException();
         }
