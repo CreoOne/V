@@ -110,5 +110,17 @@ namespace VTest
         {
             Assert.That(Vector.CloseEnough(Vector.UnPostfix(new Vector(1, 2, 3)), new Vector(1, 2), Precision));
         }
+
+        [Test]
+        public void ToString_()
+        {
+            Assert.That(new Vector(1, 3.1415).ToString(), Is.EqualTo("[1, 3.1415]"));
+        }
+
+        [Test]
+        public void ToEnumerable()
+        {
+            Assert.That(new Vector().ToEnumerable(), Is.Empty);
+        }
     }
 }
