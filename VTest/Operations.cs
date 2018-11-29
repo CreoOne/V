@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System;
 using System.Linq;
 using V;
 
@@ -147,6 +148,16 @@ namespace VTest
         public void Lerp()
         {
             Assert.That(Vector.CloseEnough(Vector.Lerp(new Vector(1, 2), new Vector(2, 3), 0.5), new Vector(1.5, 2.5), Precision));
+        }
+
+        [Test]
+        public void Merge()
+        {
+            Func<double, double, int, double> operation = (q, r, i) => (q + r) * (i + 1);
+
+            Assert.That(Vector.CloseEnough(Vector.Merge(new Vector(1, 2), new Vector(2, 1), operation), new Vector(3, 6), Precision));
+            Assert.That(Vector.CloseEnough(Vector.Merge(new Vector(1, 2), 2, operation), new Vector(3, 8), Precision));
+            Assert.That(Vector.CloseEnough(Vector.Merge(2, new Vector(1, 2), operation), new Vector(3, 8), Precision));
         }
     }
 }
