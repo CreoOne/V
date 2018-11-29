@@ -124,5 +124,11 @@ namespace VTest
             Assert.That(new Vector().ToEnumerable(), Is.Empty);
             Assert.That(new Vector(1, 2, 3).ToEnumerable().ToArray(), Is.EqualTo(new double[] { 1, 2, 3 }));
         }
+
+        [Test]
+        public void Map()
+        {
+            Assert.That(Vector.CloseEnough(Vector.Map(new Vector(1, 2, 3), (i) => i * 2d), new Vector(2, 4, 6), Precision));
+        }
     }
 }
