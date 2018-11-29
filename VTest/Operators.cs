@@ -50,5 +50,11 @@ namespace VTest
 
             Assert.Throws<DimensionalityMismatchException>(() => (new Vector(1) / new Vector(1, 1)).ToString());
         }
+
+        [Test]
+        public void Negative()
+        {
+            Assert.That(Vector.CloseEnough(-new Vector(1), new Vector(-1), 1e-11));
+        }
     }
 }

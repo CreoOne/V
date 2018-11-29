@@ -130,5 +130,23 @@ namespace VTest
         {
             Assert.That(Vector.CloseEnough(Vector.Map(new Vector(1, 2, 3), (i) => i * 2d), new Vector(2, 4, 6), Precision));
         }
+
+        [Test]
+        public void Min()
+        {
+            Assert.That(Vector.CloseEnough(Vector.Min(new Vector(1, 2), new Vector(2, 1)), new Vector(1, 1), Precision));
+        }
+
+        [Test]
+        public void Max()
+        {
+            Assert.That(Vector.CloseEnough(Vector.Max(new Vector(1, 2), new Vector(2, 1)), new Vector(2, 2), Precision));
+        }
+
+        [Test]
+        public void Lerp()
+        {
+            Assert.That(Vector.CloseEnough(Vector.Lerp(new Vector(1, 2), new Vector(2, 3), 0.5), new Vector(1.5, 2.5), Precision));
+        }
     }
 }
