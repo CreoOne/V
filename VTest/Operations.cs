@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using System.Linq;
 using V;
 
 namespace VTest
@@ -121,6 +122,7 @@ namespace VTest
         public void ToEnumerable()
         {
             Assert.That(new Vector().ToEnumerable(), Is.Empty);
+            Assert.That(new Vector(1, 2, 3).ToEnumerable().ToArray(), Is.EqualTo(new double[] { 1, 2, 3 }));
         }
     }
 }
