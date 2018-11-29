@@ -159,5 +159,17 @@ namespace VTest
             Assert.That(Vector.CloseEnough(Vector.Merge(new Vector(1, 2), 2, operation), new Vector(3, 8), Precision));
             Assert.That(Vector.CloseEnough(Vector.Merge(2, new Vector(1, 2), operation), new Vector(3, 8), Precision));
         }
+
+        [Test]
+        public void Set()
+        {
+            Assert.That(Vector.CloseEnough(Vector.Set(new Vector(4, 4, 4, 4), 2, 1), new Vector(4, 2, 4, 4), Precision));
+        }
+
+        [Test]
+        public void Swizzle()
+        {
+            Assert.That(Vector.CloseEnough(Vector.Swizzle(new Vector(1, 2, 3, 4), new[] { 0, 3, 1, 2 }), new Vector(1, 4, 2, 3), Precision));
+        }
     }
 }
