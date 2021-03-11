@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 
 namespace V.Samples
@@ -86,7 +87,7 @@ namespace V.Samples
                 Vector sum = q + r;
                 DrawLine(render, sum, Color.Blue);
 
-                render.Save(@"..\..\img\sum.png");
+                render.Save(GetPathToFile("sum.png"));
             }
         }
 
@@ -105,7 +106,7 @@ namespace V.Samples
                 Vector sub = q - r;
                 DrawLine(render, sub, Color.Blue);
 
-                render.Save(@"..\..\img\sub.png");
+                render.Save(GetPathToFile("sub.png"));
             }
         }
 
@@ -164,7 +165,7 @@ namespace V.Samples
                 Vector raa = Vector.RotateAroundAxis(q, axis, angle);
                 DrawLine(render, raa, Color.Blue);
 
-                render.Save(@"..\..\img\raa.png");
+                render.Save(GetPathToFile("raa.png"));
             }
         }
 
@@ -186,7 +187,7 @@ namespace V.Samples
                 DrawTrace(render, (p) => Vector.Lerp(q, half, p), Color.Green, Color.Blue, 10);
                 DrawTrace(render, (p) => Vector.Lerp(r, half, p), Color.Green, Color.Blue, 10);
 
-                render.Save(@"..\..\img\lerpIn.png");
+                render.Save(GetPathToFile("lerpIn.png"));
             }
         }
 
@@ -208,7 +209,7 @@ namespace V.Samples
                 render.DrawLine(q, r, Color.FromArgb(TraceAlpha, Color.Green));
                 DrawTrace(render, (p) => Vector.Lerp(r, extra, p), Color.Green, Color.Blue, 10);
 
-                render.Save(@"..\..\img\lerpEx.png");
+                render.Save(GetPathToFile("lerpEx.png"));
             }
         }
 
@@ -249,7 +250,7 @@ namespace V.Samples
                 Vector cross = Vector.Cross(q, r);
                 DrawLine(render, cross, Color.Blue);
 
-                render.Save(@"..\..\img\cross.png");
+                render.Save(GetPathToFile("cross.png"));
             }
         }
 
@@ -306,6 +307,13 @@ namespace V.Samples
 
                 lastPosition = currentPosition;
             }
+        }
+
+        private static string GetPathToFile(string filename)
+        {
+            var directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "img");
+            Directory.CreateDirectory(directory);
+            return Path.Combine(directory, filename);
         }
     }
 }
