@@ -6,19 +6,19 @@ using System.Linq;
 
 namespace V
 {
-    public struct Vector
+    public readonly struct Vector
     {
         private static readonly NumberFormatInfo NumberFormat = new NumberFormatInfo { NumberDecimalSeparator = "." };
 
         /// <summary>
         /// Dimensions of vector
         /// </summary>
-        public int Dimensions { get; private set; }
+        public int Dimensions { get; }
 
         /// <summary>
         /// Concrete values in corresponding dimensions
         /// </summary>
-        private double[] Values { get; set; }
+        private double[] Values { get; }
 
         public double LengthSquared { get { return Aggregate(this, (r, q) => r + q * q); } }
         public double Length { get { return Math.Sqrt(LengthSquared); } }
