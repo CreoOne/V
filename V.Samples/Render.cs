@@ -3,9 +3,8 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.Linq;
-using V;
 
-namespace VExp
+namespace V.Samples
 {
     internal sealed class Render : IDisposable
     {
@@ -54,7 +53,7 @@ namespace VExp
             Vector zero = Vector.Create(3, 0);
             string[] marks = new string[] { "+x", "-x", "+y", "-y", "+z", "-z" };
 
-            foreach(int dimension in Enumerable.Range(0, 3))
+            foreach (int dimension in Enumerable.Range(0, 3))
             {
                 Vector positive = Vector.Set(zero, 1, dimension);
                 Vector negative = -positive;
@@ -73,7 +72,7 @@ namespace VExp
         private Vector ProjectionToScreen(Vector v)
         {
             Vector halfScreen = Size / 2d;
-            return Vector.Postfix(halfScreen, 0) + v * (halfScreen[1]) * new Vector(1, -1, 1);
+            return Vector.Postfix(halfScreen, 0) + v * halfScreen[1] * new Vector(1, -1, 1);
         }
 
         private Vector ModelToWorld(Vector v)

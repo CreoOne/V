@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Drawing;
 using System.Linq;
-using V;
 
-namespace VExp
+namespace V.Samples
 {
     class Program
     {
@@ -292,7 +291,7 @@ namespace VExp
             Vector sourceColor = ColorToVector(qColor);
             Vector destinationColor = ColorToVector(rColor);
 
-            Vector lastPosition = default(Vector);
+            Vector lastPosition = default;
 
             foreach (int index in Enumerable.Range(0, steps + 1))
             {

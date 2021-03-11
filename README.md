@@ -1,25 +1,18 @@
-# V
-[![Build status](https://ci.appveyor.com/api/projects/status/8tm37ghsgh4wq9fn?svg=true)](https://ci.appveyor.com/project/CreoOne/v)
-[![Coverage Status](https://coveralls.io/repos/github/CreoOne/V/badge.svg?branch=master)](https://coveralls.io/github/CreoOne/V?branch=master)
-[![codecov](https://codecov.io/gh/CreoOne/V/branch/master/graph/badge.svg)](https://codecov.io/gh/CreoOne/V)
-  
+# V 
 Yet another, reinvented, multidimensional Vector library designed for work with changing dimensionality.
 
 ### Requirements
-* Microsoft .NET Framework 4.6.1 (Most likely works on older versions, potential TODO)
-
-### Dependencies
-* NUnit 3.9.0.0 (for VTest project)
-* NUnit Test Adapter 3.9.0.0 (extension for test execution in Visual Studio used only in VTest project)
+* Microsoft .NET Standard 2.0
+* Microsoft .NET 5.0
 
 ### Projects
 * V - Main functionality
-* VExp - Usage samples
-* VTest - Tests
+* V.Samples - Usage samples
+* V.UnitTests - Unit tests
 
 ### Setup
 * Download repository
-* Open V.sln in Visual Studio (i'm using 2017 Community version but 2013 and 2015 should work too)
+* Open V.sln in Visual Studio (i'm using 2019 Community)
 * Build project V (check project properties for output path, most likely ./bin/Debug/)
 * V.dll is now ready to be added as reference in your projects
 
@@ -29,7 +22,7 @@ Yet another, reinvented, multidimensional Vector library designed for work with 
 ---
 
 ### Samples
-Here are some usage examples that might be helpful. Code used for samples and images is available in VExp project.
+Here are some usage examples that might be helpful. Code used for samples and images is available in V.Samples project.
 
 #### Vector arithmetic operators
 
@@ -46,7 +39,7 @@ Vector add3 = 2 + new Vector(2, 1);
 ```
 
 Visualization of two 3 dimensional vectors (in green) resulting in third vector as a sum (in blue)
-![sum_chart](./VExp/img/sum.png "3 dimensional isometric chart with 3 vectors represented as a lines")
+![sum_chart](./V.Samples/img/sum.png "3 dimensional isometric chart with 3 vectors represented as a lines")
 
 ##### Subtraction
 ```csharp
@@ -61,7 +54,7 @@ Vector sub3 = 2 - new Vector(2, 1);
 ```
 
 Visualization of two 3 dimensional vectors (in green) resulting in third vector as a diffrence (in blue)
-![sub_chart](./VExp/img/sub.png "3 dimensional isometric chart with 3 vectors represented as a lines")
+![sub_chart](./V.Samples/img/sub.png "3 dimensional isometric chart with 3 vectors represented as a lines")
 
 ##### Multiplication
 ```csharp
@@ -137,7 +130,7 @@ Vector raa = Vector.RotateAroundAxis(new Vector(1, 0, 0), new Vector(0, 1, 0), M
 ```
 
 Visualization of 3 dimensional vector (in green) being rotated 180° around axis (in red) resulting in third vector (in blue)
-![raa_chart](./VExp/img/raa.png "3 dimensional isometric chart with 3 vectors represented as a lines")
+![raa_chart](./V.Samples/img/raa.png "3 dimensional isometric chart with 3 vectors represented as a lines")
 
 ##### CloseEnough
 Checks proximity of two vectors with specified tolerance.
@@ -157,7 +150,7 @@ Vector inter = Vector.Lerp(new Vector(-0.8, 0.3, -0.5), new Vector(0.4, 0.5, 0.3
 ```
 
 Visualization of two 3 dimensional vectors (in green) resulting in third vector (in blue)
-![lerpIn_chart](./VExp/img/lerpIn.png "3 dimensional isometric chart with 3 vectors represented as a lines")
+![lerpIn_chart](./V.Samples/img/lerpIn.png "3 dimensional isometric chart with 3 vectors represented as a lines")
 
 Lerp can also be used for extrapolation.
 ```csharp
@@ -166,7 +159,7 @@ Vector extra = Vector.Lerp(new Vector(-0.8, 0.3, -0.5), new Vector(0.4, 0.5, 0.3
 ```
 
 Visualization of two 3 dimensional vectors (in green) resulting in third vector (in blue)
-![lerpEx_chart](./VExp/img/lerpEx.png "3 dimensional isometric chart with 3 vectors represented as a lines")
+![lerpEx_chart](./V.Samples/img/lerpEx.png "3 dimensional isometric chart with 3 vectors represented as a lines")
 
 ##### Cross
 Produces vector that is perpendicular to all provided vectors.
@@ -184,4 +177,4 @@ Vector cross4d = Vector.Cross(new Vector(1, 0, 0, 0), new Vector(0, 1, 0, 0), ne
 ```
 
 Visualization of two 3 dimensional vectors (in green) resulting in third vector as a cross product (in blue)
-![cross_chart](./VExp/img/cross.png "3 dimensional isometric chart with 3 vectors represented as a lines")
+![cross_chart](./V.Samples/img/cross.png "3 dimensional isometric chart with 3 vectors represented as a lines")
