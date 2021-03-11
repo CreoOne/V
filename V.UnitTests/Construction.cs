@@ -11,7 +11,7 @@ namespace V.UnitTests
             {
                 Vector v = new Vector();
                 Assert.Equal(0, v.Dimensions);
-                Assert.Equal(new double[] { }, v.ToArray());
+                Assert.Equal(Array.Empty<double>(), v.ToArray());
             }
 
             {
@@ -27,7 +27,7 @@ namespace V.UnitTests
             }
 
             {
-                Assert.Throws<ArgumentNullException>(() => new Vector(null));
+                Assert.Throws<ArgumentNullException>(() => new Vector(null!));
             }
         }
 
@@ -37,7 +37,7 @@ namespace V.UnitTests
             {
                 Vector v = Vector.Create(0, 1);
                 Assert.Equal(0, v.Dimensions);
-                Assert.Equal(new double[] { }, v.ToArray());
+                Assert.Equal(Array.Empty<double>(), v.ToArray());
             }
 
             {
@@ -63,7 +63,7 @@ namespace V.UnitTests
             {
                 Vector v = default;
                 Assert.Equal(0, v.Dimensions);
-                Assert.Equal(new double[] { }, v.ToArray());
+                Assert.Equal(Array.Empty<double>(), v.ToArray());
             }
         }
 

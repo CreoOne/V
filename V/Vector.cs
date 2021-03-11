@@ -20,22 +20,16 @@ namespace V
         /// </summary>
         private double[] Values { get; }
 
-        public double LengthSquared { get { return Aggregate(this, (r, q) => r + q * q); } }
-        public double Length { get { return Math.Sqrt(LengthSquared); } }
+        public double LengthSquared => Aggregate(this, (r, q) => r + q * q);
+        public double Length => Math.Sqrt(LengthSquared);
 
-        public double this[int index]
-        {
-            get { return (Values ?? new double[] { })[index]; }
-        }
+        public double this[int index] => Values[index];
 
         /// <summary>
         /// Creates new vector with all dimensions filled with value
         /// </summary>
         [DebuggerStepThrough]
-        public static Vector Create(int dimensions, double value)
-        {
-            return new Vector(Enumerable.Repeat(value, dimensions));
-        }
+        public static Vector Create(int dimensions, double value) => new Vector(Enumerable.Repeat(value, dimensions));
 
         /// <summary>
         /// Creates new vector from values
@@ -51,26 +45,20 @@ namespace V
         /// Creates new vector from values
         /// </summary>
         [DebuggerStepThrough]
-        public Vector(IEnumerable<double> values) : this(values.ToArray()) { }
+        public Vector(IEnumerable<double> values) : this((values ?? throw new ArgumentNullException(nameof(values))).ToArray()) { }
 
 
         /// <summary>
         /// Creates unit vector
         /// </summary>
         [DebuggerStepThrough]
-        public static Vector Normalize(Vector q)
-        {
-            return q / q.Length;
-        }
+        public static Vector Normalize(Vector q) => q / q.Length;
 
         /// <summary>
         /// Creates dot product of two vectors
         /// </summary>
         [DebuggerStepThrough]
-        public static double Dot(Vector q, Vector r)
-        {
-            return Aggregate(q * r, (a, b) => a + b);
-        }
+        public static double Dot(Vector q, Vector r) => Aggregate(q * r, (a, b) => a + b);
 
         /// <summary>
         /// Creates cross product of vectors
@@ -195,10 +183,7 @@ namespace V
 
         #region Operators
         [DebuggerStepThrough]
-        public static Vector operator -(Vector q)
-        {
-            return q * -1;
-        }
+        public static Vector operator -(Vector q) => q * -1;
 
         [DebuggerStepThrough]
         public static Vector operator +(Vector q, Vector r)
@@ -233,52 +218,28 @@ namespace V
         }
 
         [DebuggerStepThrough]
-        public static Vector operator +(Vector q, double r)
-        {
-            return Merge(q, r, (a, b) => a + b);
-        }
+        public static Vector operator +(Vector q, double r) => Merge(q, r, (a, b) => a + b);
 
         [DebuggerStepThrough]
-        public static Vector operator -(Vector q, double r)
-        {
-            return Merge(q, r, (a, b) => a - b);
-        }
+        public static Vector operator -(Vector q, double r) => Merge(q, r, (a, b) => a - b);
 
         [DebuggerStepThrough]
-        public static Vector operator *(Vector q, double r)
-        {
-            return Merge(q, r, (a, b) => a * b);
-        }
+        public static Vector operator *(Vector q, double r) => Merge(q, r, (a, b) => a * b);
 
         [DebuggerStepThrough]
-        public static Vector operator /(Vector q, double r)
-        {
-            return Merge(q, r, (a, b) => a / b);
-        }
+        public static Vector operator /(Vector q, double r) => Merge(q, r, (a, b) => a / b);
 
         [DebuggerStepThrough]
-        public static Vector operator +(double q, Vector r)
-        {
-            return Merge(q, r, (a, b) => a + b);
-        }
+        public static Vector operator +(double q, Vector r) => Merge(q, r, (a, b) => a + b);
 
         [DebuggerStepThrough]
-        public static Vector operator -(double q, Vector r)
-        {
-            return Merge(q, r, (a, b) => a - b);
-        }
+        public static Vector operator -(double q, Vector r) => Merge(q, r, (a, b) => a - b);
 
         [DebuggerStepThrough]
-        public static Vector operator *(double q, Vector r)
-        {
-            return Merge(q, r, (a, b) => a * b);
-        }
+        public static Vector operator *(double q, Vector r) => Merge(q, r, (a, b) => a * b);
 
         [DebuggerStepThrough]
-        public static Vector operator /(double q, Vector r)
-        {
-            return Merge(q, r, (a, b) => a / b);
-        }
+        public static Vector operator /(double q, Vector r) => Merge(q, r, (a, b) => a / b);
         #endregion
 
         #region Operations
@@ -425,7 +386,7 @@ namespace V
         /// Aggregates value of every dimension using operation function
         /// </summary>
         [DebuggerStepThrough]
-        public static double Aggregate(Vector q, Func<double, double, double> operation, double entry = default(double))
+        public static double Aggregate(Vector q, Func<double, double, double> operation, double entry = default)
         {
             for (int index = 0; index < q.Dimensions; index++)
                 entry = operation(entry, q.Values[index]);
@@ -437,7 +398,7 @@ namespace V
         /// Aggregates value of every dimension using operation function
         /// </summary>
         [DebuggerStepThrough]
-        public static double Aggregate(Vector q, Func<double, double, int, double> operation, double entry = default(double))
+        public static double Aggregate(Vector q, Func<double, double, int, double> operation, double entry = default)
         {
             for (int index = 0; index < q.Dimensions; index++)
                 entry = operation(entry, q.Values[index], index);
@@ -465,19 +426,13 @@ namespace V
         /// Adds value before first dimension
         /// </summary>
         [DebuggerStepThrough]
-        public static Vector Prefix(Vector q, double value)
-        {
-            return Insert(q, value, 0);
-        }
+        public static Vector Prefix(Vector q, double value) => Insert(q, value, 0);
 
         /// <summary>
         /// Adds value after last dimension
         /// </summary>
         [DebuggerStepThrough]
-        public static Vector Postfix(Vector q, double value)
-        {
-            return Insert(q, value, q.Dimensions);
-        }
+        public static Vector Postfix(Vector q, double value) => Insert(q, value, q.Dimensions);
 
         /// <summary>
         /// Removes value from corresponding dimension shifting rest values into closer dimentions
@@ -497,19 +452,13 @@ namespace V
         /// Removes first value
         /// </summary>
         [DebuggerStepThrough]
-        public static Vector UnPrefix(Vector q)
-        {
-            return Remove(q, 0);
-        }
+        public static Vector UnPrefix(Vector q) => Remove(q, 0);
 
         /// <summary>
         /// Removes last value
         /// </summary>
         [DebuggerStepThrough]
-        public static Vector UnPostfix(Vector q)
-        {
-            return Remove(q, q.Dimensions -1);
-        }
+        public static Vector UnPostfix(Vector q) => Remove(q, q.Dimensions - 1);
 
         /// <summary>
         /// Changes order of values using provided map
@@ -565,10 +514,7 @@ namespace V
         }
 
         [DebuggerStepThrough]
-        public override string ToString()
-        {
-            return string.Format("[{0}]", string.Join(", ", Values.Select(v => v.ToString(NumberFormat))));
-        }
+        public override string ToString() => string.Format("[{0}]", string.Join(", ", Values.Select(v => v.ToString(NumberFormat))));
 
         [DebuggerStepThrough]
         public double[] ToArray()
@@ -582,9 +528,6 @@ namespace V
         }
 
         [DebuggerStepThrough]
-        public IEnumerable<double> ToEnumerable()
-        {
-            return Values ?? new double[] { };
-        }
+        public IEnumerable<double> ToEnumerable() => Values;
     }
 }

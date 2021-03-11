@@ -5,11 +5,11 @@ using System.Linq;
 
 namespace V.Samples
 {
-    class Program
+    public class Program
     {
         private const int TraceAlpha = 80;
 
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             Vector size = new Vector(400, 300);
 
@@ -74,40 +74,36 @@ namespace V.Samples
 
         private static void VisualizationVectorSum(Vector size)
         {
-            using (Render render = new Render(size))
-            {
-                render.DrawAxes();
+            using Render render = new Render(size);
+            render.DrawAxes();
 
-                Vector q = new Vector(-0.4, 0.3, -0.6);
-                DrawLine(render, q, Color.Green);
+            Vector q = new Vector(-0.4, 0.3, -0.6);
+            DrawLine(render, q, Color.Green);
 
-                Vector r = new Vector(0.7, 0.4, 0.3);
-                DrawLine(render, r, Color.Green);
+            Vector r = new Vector(0.7, 0.4, 0.3);
+            DrawLine(render, r, Color.Green);
 
-                Vector sum = q + r;
-                DrawLine(render, sum, Color.Blue);
+            Vector sum = q + r;
+            DrawLine(render, sum, Color.Blue);
 
-                render.Save(GetPathToFile("sum.png"));
-            }
+            render.Save(GetPathToFile("sum.png"));
         }
 
         private static void VisualizationVectorSub(Vector size)
         {
-            using (Render render = new Render(size))
-            {
-                render.DrawAxes();
+            using Render render = new Render(size);
+            render.DrawAxes();
 
-                Vector q = new Vector(-0.4, 0.6, -0.5);
-                DrawLine(render, q, Color.Green);
+            Vector q = new Vector(-0.4, 0.6, -0.5);
+            DrawLine(render, q, Color.Green);
 
-                Vector r = new Vector(0.4, 0.3, 0.2);
-                DrawLine(render, r, Color.Green);
+            Vector r = new Vector(0.4, 0.3, 0.2);
+            DrawLine(render, r, Color.Green);
 
-                Vector sub = q - r;
-                DrawLine(render, sub, Color.Blue);
+            Vector sub = q - r;
+            DrawLine(render, sub, Color.Blue);
 
-                render.Save(GetPathToFile("sub.png"));
-            }
+            render.Save(GetPathToFile("sub.png"));
         }
 
         private static void ExpVectorFunctions()
@@ -148,69 +144,63 @@ namespace V.Samples
 
         private static void VisualizationVectorRotateAroundAxis(Vector size)
         {
-            using (Render render = new Render(size))
-            {
-                render.DrawAxes();
+            using Render render = new Render(size);
+            render.DrawAxes();
 
-                Vector q = new Vector(0.5, 0.2, 0.6);
-                DrawLine(render, q, Color.Green);
+            Vector q = new Vector(0.5, 0.2, 0.6);
+            DrawLine(render, q, Color.Green);
 
-                Vector axis = new Vector(0.2, 0.5, -0.1);
-                DrawLine(render, axis, Color.Red);
+            Vector axis = new Vector(0.2, 0.5, -0.1);
+            DrawLine(render, axis, Color.Red);
 
-                double angle = -Math.PI;
-                DrawTrace(render, (p) => Vector.RotateAroundAxis(q, axis, p * -angle), Color.Silver, Color.Silver, 50);
-                DrawTrace(render, (p) => Vector.RotateAroundAxis(q, axis, p * angle), Color.Green, Color.Blue, 50);
+            double angle = -Math.PI;
+            DrawTrace(render, (p) => Vector.RotateAroundAxis(q, axis, p * -angle), Color.Silver, Color.Silver, 50);
+            DrawTrace(render, (p) => Vector.RotateAroundAxis(q, axis, p * angle), Color.Green, Color.Blue, 50);
 
-                Vector raa = Vector.RotateAroundAxis(q, axis, angle);
-                DrawLine(render, raa, Color.Blue);
+            Vector raa = Vector.RotateAroundAxis(q, axis, angle);
+            DrawLine(render, raa, Color.Blue);
 
-                render.Save(GetPathToFile("raa.png"));
-            }
+            render.Save(GetPathToFile("raa.png"));
         }
 
         private static void VisualizationVectorLinearInterpolation(Vector size)
         {
-            using (Render render = new Render(size))
-            {
-                render.DrawAxes();
+            using Render render = new Render(size);
+            render.DrawAxes();
 
-                Vector q = new Vector(-0.8, 0.3, -0.5);
-                DrawLine(render, q, Color.Green);
+            Vector q = new Vector(-0.8, 0.3, -0.5);
+            DrawLine(render, q, Color.Green);
 
-                Vector r = new Vector(0.4, 0.5, 0.3);
-                DrawLine(render, r, Color.Green);
+            Vector r = new Vector(0.4, 0.5, 0.3);
+            DrawLine(render, r, Color.Green);
 
-                Vector half = Vector.Lerp(q, r, 0.5);
-                DrawLine(render, half, Color.Blue);
+            Vector half = Vector.Lerp(q, r, 0.5);
+            DrawLine(render, half, Color.Blue);
 
-                DrawTrace(render, (p) => Vector.Lerp(q, half, p), Color.Green, Color.Blue, 10);
-                DrawTrace(render, (p) => Vector.Lerp(r, half, p), Color.Green, Color.Blue, 10);
+            DrawTrace(render, (p) => Vector.Lerp(q, half, p), Color.Green, Color.Blue, 10);
+            DrawTrace(render, (p) => Vector.Lerp(r, half, p), Color.Green, Color.Blue, 10);
 
-                render.Save(GetPathToFile("lerpIn.png"));
-            }
+            render.Save(GetPathToFile("lerpIn.png"));
         }
 
         private static void VisualizationVectorLinearExtrapolation(Vector size)
         {
-            using (Render render = new Render(size))
-            {
-                render.DrawAxes();
+            using Render render = new Render(size);
+            render.DrawAxes();
 
-                Vector q = new Vector(-0.8, 0.3, -0.5);
-                DrawLine(render, q, Color.Green);
+            Vector q = new Vector(-0.8, 0.3, -0.5);
+            DrawLine(render, q, Color.Green);
 
-                Vector r = new Vector(0.4, 0.5, 0.3);
-                DrawLine(render, r, Color.Green);
+            Vector r = new Vector(0.4, 0.5, 0.3);
+            DrawLine(render, r, Color.Green);
 
-                Vector extra = Vector.Lerp(q, r, 1.2);
-                DrawLine(render, extra, Color.Blue);
+            Vector extra = Vector.Lerp(q, r, 1.2);
+            DrawLine(render, extra, Color.Blue);
 
-                render.DrawLine(q, r, Color.FromArgb(TraceAlpha, Color.Green));
-                DrawTrace(render, (p) => Vector.Lerp(r, extra, p), Color.Green, Color.Blue, 10);
+            render.DrawLine(q, r, Color.FromArgb(TraceAlpha, Color.Green));
+            DrawTrace(render, (p) => Vector.Lerp(r, extra, p), Color.Green, Color.Blue, 10);
 
-                render.Save(GetPathToFile("lerpEx.png"));
-            }
+            render.Save(GetPathToFile("lerpEx.png"));
         }
 
         private static Color VectorToColor(Vector v)
@@ -237,21 +227,19 @@ namespace V.Samples
 
         private static void VisualizationVectorCross(Vector size)
         {
-            using (Render render = new Render(size))
-            {
-                render.DrawAxes();
+            using Render render = new Render(size);
+            render.DrawAxes();
 
-                Vector q = Vector.Normalize(new Vector(-0.2, 0.3, -0.3));
-                DrawLine(render, q, Color.Green);
+            Vector q = Vector.Normalize(new Vector(-0.2, 0.3, -0.3));
+            DrawLine(render, q, Color.Green);
 
-                Vector r = Vector.Normalize(new Vector(0.4, 0.4, 0.1));
-                DrawLine(render, r, Color.Green);
+            Vector r = Vector.Normalize(new Vector(0.4, 0.4, 0.1));
+            DrawLine(render, r, Color.Green);
 
-                Vector cross = Vector.Cross(q, r);
-                DrawLine(render, cross, Color.Blue);
+            Vector cross = Vector.Cross(q, r);
+            DrawLine(render, cross, Color.Blue);
 
-                render.Save(GetPathToFile("cross.png"));
-            }
+            render.Save(GetPathToFile("cross.png"));
         }
 
         private static void ExpVectorDimensionalityChanges()

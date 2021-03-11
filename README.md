@@ -2,7 +2,7 @@
 Yet another, reinvented, multidimensional Vector library designed for work with changing dimensionality.
 
 ### Requirements
-* Microsoft .NET Standard 2.0
+* Microsoft .NET Standard 2.1
 * Microsoft .NET 5.0
 
 ### Projects

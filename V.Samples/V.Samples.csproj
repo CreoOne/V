@@ -4,6 +4,7 @@
     <OutputType>Exe</OutputType>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <Authors>Tomasz 'CreoOne' Czarnecki</Authors>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\V\V.csproj" />
