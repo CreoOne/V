@@ -10,7 +10,7 @@ env:
 jobs:
   build:
     name: Build and run
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
     - name: Setup .NET
@@ -22,7 +22,7 @@ jobs:
     - name: Build
       run: dotnet build --no-restore --configuration Release
     - name: Run
-      run: dotnet run --no-build --verbosity normal --project ./V.Benchmarks/V.Benchmarks.csproj
+      run: dotnet run --no-build --configuration Release --verbosity normal --project ./V.Benchmarks/V.Benchmarks.csproj
     - name: Upload published artifact
       uses: actions/upload-artifact@v2.2.4
       with:
