@@ -3,12 +3,13 @@ Yet another, reinvented, multidimensional Vector library designed for work with 
 
 ### Requirements
 * Microsoft .NET Standard 2.1
-* Microsoft .NET 5.0
+* Microsoft .NET 6.0
 
 ### Projects
 * V - Main functionality
 * V.Samples - Usage samples
 * V.UnitTests - Unit tests
+* V.Benchmarks - Benchmarks
 
 ### Setup
 * Download repository
