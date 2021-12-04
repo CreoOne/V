@@ -28,13 +28,11 @@ namespace V
         /// <summary>
         /// Creates new vector with all dimensions filled with value
         /// </summary>
-        [DebuggerStepThrough]
         public static Vector Create(int dimensions, double value) => new Vector(Enumerable.Repeat(value, dimensions));
 
         /// <summary>
         /// Creates new vector from values
         /// </summary>
-        [DebuggerStepThrough]
         public Vector(params double[] values)
         {
             Values = values ?? throw new ArgumentNullException(nameof(values));
@@ -44,26 +42,22 @@ namespace V
         /// <summary>
         /// Creates new vector from values
         /// </summary>
-        [DebuggerStepThrough]
         public Vector(IEnumerable<double> values) : this((values ?? throw new ArgumentNullException(nameof(values))).ToArray()) { }
 
 
         /// <summary>
         /// Creates unit vector
         /// </summary>
-        [DebuggerStepThrough]
         public static Vector Normalize(Vector q) => q / q.Length;
 
         /// <summary>
         /// Creates dot product of two vectors
         /// </summary>
-        [DebuggerStepThrough]
         public static double Dot(Vector q, Vector r) => Aggregate(q * r, (a, b) => a + b);
 
         /// <summary>
         /// Creates cross product of vectors
         /// </summary>
-        [DebuggerStepThrough]
         public static Vector Cross(params Vector[] vectors)
         {
             EnsureConsistentDimensionality(vectors);
@@ -77,7 +71,6 @@ namespace V
         /// <summary>
         /// Creates determinant of vectors
         /// </summary>
-        [DebuggerStepThrough]
         public static double Det(params Vector[] vectors)
         {
             EnsureConsistentDimensionality(vectors);
@@ -99,7 +92,6 @@ namespace V
         /// <summary>
         /// Proximity check
         /// </summary>
-        [DebuggerStepThrough]
         public static bool CloseEnough(Vector q, Vector r, double distance)
         {
             EnsureConsistentDimensionality(q, r);
@@ -110,7 +102,6 @@ namespace V
         /// <summary>
         /// Angle difference between two vectors in radians
         /// </summary>
-        [DebuggerStepThrough]
         public static double AngleDifference(Vector q, Vector o, Vector r)
         {
             EnsureConsistentDimensionality(q, o, r);
@@ -124,7 +115,6 @@ namespace V
         /// <summary>
         /// Rotate vector around axis by angle in radians
         /// </summary>
-        [DebuggerStepThrough]
         public static Vector RotateAroundAxis(Vector vector, Vector axis, double angle)
         {
             EnsureConsistentDimensionality(vector, axis);
@@ -139,7 +129,6 @@ namespace V
         /// <summary>
         /// Min value vector from vectors
         /// </summary>
-        [DebuggerStepThrough]
         public static Vector Min(params Vector[] vectors)
         {
             EnsureConsistentDimensionality(vectors);
@@ -156,7 +145,6 @@ namespace V
         /// <summary>
         /// Max value vector from vectors
         /// </summary>
-        [DebuggerStepThrough]
         public static Vector Max(params Vector[] vectors)
         {
             EnsureConsistentDimensionality(vectors);
@@ -173,7 +161,6 @@ namespace V
         /// <summary>
         /// Linear interpolation
         /// </summary>
-        [DebuggerStepThrough]
         public static Vector Lerp(Vector q, Vector r, double position)
         {
             EnsureConsistentDimensionality(q, r);
@@ -182,63 +169,50 @@ namespace V
         }
 
         #region Operators
-        [DebuggerStepThrough]
         public static Vector operator -(Vector q) => q * -1;
-
-        [DebuggerStepThrough]
+        
         public static Vector operator +(Vector q, Vector r)
         {
             EnsureConsistentDimensionality(q, r);
 
             return Merge(q, r, (a, b) => a + b);
         }
-
-        [DebuggerStepThrough]
+        
         public static Vector operator -(Vector q, Vector r)
         {
             EnsureConsistentDimensionality(q, r);
 
             return Merge(q, r, (a, b) => a - b);
         }
-
-        [DebuggerStepThrough]
+        
         public static Vector operator *(Vector q, Vector r)
         {
             EnsureConsistentDimensionality(q, r);
 
             return Merge(q, r, (a, b) => a * b);
         }
-
-        [DebuggerStepThrough]
+        
         public static Vector operator /(Vector q, Vector r)
         {
             EnsureConsistentDimensionality(q, r);
 
             return Merge(q, r, (a, b) => a / b);
         }
-
-        [DebuggerStepThrough]
+        
         public static Vector operator +(Vector q, double r) => Merge(q, r, (a, b) => a + b);
-
-        [DebuggerStepThrough]
+        
         public static Vector operator -(Vector q, double r) => Merge(q, r, (a, b) => a - b);
-
-        [DebuggerStepThrough]
+        
         public static Vector operator *(Vector q, double r) => Merge(q, r, (a, b) => a * b);
-
-        [DebuggerStepThrough]
+        
         public static Vector operator /(Vector q, double r) => Merge(q, r, (a, b) => a / b);
-
-        [DebuggerStepThrough]
+        
         public static Vector operator +(double q, Vector r) => Merge(q, r, (a, b) => a + b);
-
-        [DebuggerStepThrough]
+        
         public static Vector operator -(double q, Vector r) => Merge(q, r, (a, b) => a - b);
-
-        [DebuggerStepThrough]
+        
         public static Vector operator *(double q, Vector r) => Merge(q, r, (a, b) => a * b);
-
-        [DebuggerStepThrough]
+        
         public static Vector operator /(double q, Vector r) => Merge(q, r, (a, b) => a / b);
         #endregion
 
@@ -246,7 +220,6 @@ namespace V
         /// <summary>
         /// Swaps
         /// </summary>
-        [DebuggerStepThrough]
         public static Vector[] Swap(params Vector[] vectors)
         {
             EnsureConsistentDimensionality(vectors);
@@ -269,7 +242,6 @@ namespace V
         /// <summary>
         /// Merges corresponding dimensions of two vectors using operation function
         /// </summary>
-        [DebuggerStepThrough]
         public static Vector Merge(Vector q, Vector r, Func<double, double, double> operation)
         {
             EnsureConsistentDimensionality(q, r);
@@ -285,7 +257,6 @@ namespace V
         /// <summary>
         /// Merges corresponding dimensions of two vectors using operation function
         /// </summary>
-        [DebuggerStepThrough]
         public static Vector Merge(Vector q, Vector r, Func<double, double, int, double> operation)
         {
             EnsureConsistentDimensionality(q, r);
@@ -301,7 +272,6 @@ namespace V
         /// <summary>
         /// Merges corresponding dimensions of vector with scalar value using operation function
         /// </summary>
-        [DebuggerStepThrough]
         public static Vector Merge(double q, Vector r, Func<double, double, double> operation)
         {
             double[] values = new double[r.Dimensions];
@@ -315,7 +285,6 @@ namespace V
         /// <summary>
         /// Merges corresponding dimensions of vector with scalar value using operation function
         /// </summary>
-        [DebuggerStepThrough]
         public static Vector Merge(double q, Vector r, Func<double, double, int, double> operation)
         {
             double[] values = new double[r.Dimensions];
@@ -329,7 +298,6 @@ namespace V
         /// <summary>
         /// Merges corresponding dimensions of vector with scalar value using operation function
         /// </summary>
-        [DebuggerStepThrough]
         public static Vector Merge(Vector q, double r, Func<double, double, double> operation)
         {
             double[] values = new double[q.Dimensions];
@@ -343,7 +311,6 @@ namespace V
         /// <summary>
         /// Merges corresponding dimensions of vector with scalar value using operation function
         /// </summary>
-        [DebuggerStepThrough]
         public static Vector Merge(Vector q, double r, Func<double, double, int, double> operation)
         {
             double[] values = new double[q.Dimensions];
@@ -357,7 +324,6 @@ namespace V
         /// <summary>
         /// Applies operation function to every dimension
         /// </summary>
-        [DebuggerStepThrough]
         public static Vector Map(Vector q, Func<double, double> operation)
         {
             double[] values = new double[q.Dimensions];
@@ -370,8 +336,7 @@ namespace V
 
         /// <summary>
         /// Applies operation function to every dimension
-        /// </summary>
-        [DebuggerStepThrough]
+        /// </summary>        
         public static Vector Map(Vector q, Func<double, int, double> operation)
         {
             double[] values = new double[q.Dimensions];
@@ -384,8 +349,7 @@ namespace V
 
         /// <summary>
         /// Aggregates value of every dimension using operation function
-        /// </summary>
-        [DebuggerStepThrough]
+        /// </summary>        
         public static double Aggregate(Vector q, Func<double, double, double> operation, double entry = default)
         {
             for (int index = 0; index < q.Dimensions; index++)
@@ -397,7 +361,6 @@ namespace V
         /// <summary>
         /// Aggregates value of every dimension using operation function
         /// </summary>
-        [DebuggerStepThrough]
         public static double Aggregate(Vector q, Func<double, double, int, double> operation, double entry = default)
         {
             for (int index = 0; index < q.Dimensions; index++)
@@ -408,8 +371,7 @@ namespace V
 
         /// <summary>
         /// Inserts value in corresponding dimension shifting rest values into further dimentions
-        /// </summary>
-        [DebuggerStepThrough]
+        /// </summary>        
         public static Vector Insert(Vector q, double value, int position)
         {
             double[] values = new double[q.Dimensions + 1];
@@ -424,20 +386,17 @@ namespace V
 
         /// <summary>
         /// Adds value before first dimension
-        /// </summary>
-        [DebuggerStepThrough]
+        /// </summary>        
         public static Vector Prefix(Vector q, double value) => Insert(q, value, 0);
 
         /// <summary>
         /// Adds value after last dimension
-        /// </summary>
-        [DebuggerStepThrough]
+        /// </summary>        
         public static Vector Postfix(Vector q, double value) => Insert(q, value, q.Dimensions);
 
         /// <summary>
         /// Removes value from corresponding dimension shifting rest values into closer dimentions
-        /// </summary>
-        [DebuggerStepThrough]
+        /// </summary>        
         public static Vector Remove(Vector q, int position)
         {
             double[] values = new double[q.Dimensions - 1];
@@ -450,20 +409,17 @@ namespace V
 
         /// <summary>
         /// Removes first value
-        /// </summary>
-        [DebuggerStepThrough]
+        /// </summary>        
         public static Vector UnPrefix(Vector q) => Remove(q, 0);
 
         /// <summary>
         /// Removes last value
-        /// </summary>
-        [DebuggerStepThrough]
+        /// </summary>        
         public static Vector UnPostfix(Vector q) => Remove(q, q.Dimensions - 1);
 
         /// <summary>
         /// Changes order of values using provided map
-        /// </summary>
-        [DebuggerStepThrough]
+        /// </summary>        
         public static Vector Swizzle(Vector q, int[] map)
         {
             if (map.Length != q.Dimensions)
@@ -475,7 +431,6 @@ namespace V
         /// <summary>
         /// Sets value in corresponding dimension
         /// </summary>
-        [DebuggerStepThrough]
         public static Vector Set(Vector q, double value, int position)
         {
             double[] result = new double[q.Dimensions];
@@ -485,22 +440,19 @@ namespace V
             return new Vector(result);
         }
         #endregion
-
-        [DebuggerStepThrough]
+        
         private static void EnsureConsistentDimensionality(Vector q, Vector r)
         {
             if (q.Dimensions != r.Dimensions)
                 throw new DimensionalityMismatchException();
         }
-
-        [DebuggerStepThrough]
+        
         private static void EnsureConsistentDimensionality(Vector q, Vector r, Vector s)
         {
             if (q.Dimensions != r.Dimensions || r.Dimensions != s.Dimensions)
                 throw new DimensionalityMismatchException();
         }
-
-        [DebuggerStepThrough]
+        
         private static void EnsureConsistentDimensionality(params Vector[] vectors)
         {
             if (vectors == null || vectors.Length <= 1)
@@ -512,11 +464,9 @@ namespace V
                 if (dimensions != vector.Dimensions)
                     throw new DimensionalityMismatchException();
         }
-
-        [DebuggerStepThrough]
+        
         public override string ToString() => string.Format("[{0}]", string.Join(", ", Values.Select(v => v.ToString(NumberFormat))));
-
-        [DebuggerStepThrough]
+        
         public double[] ToArray()
         {
             if (Values == null)
@@ -527,7 +477,6 @@ namespace V
             return result;
         }
 
-        [DebuggerStepThrough]
         public IEnumerable<double> ToEnumerable() => Values;
     }
 }
