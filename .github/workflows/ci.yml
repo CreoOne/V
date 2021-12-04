@@ -1,0 +1,61 @@
+name: 'CI'
+
+on:
+  push:
+    branches:
+    - master
+    - bug/*
+    - feature/*
+  pull_request:
+    branches:
+    - master
+    
+env:
+  PUBLISHED_ARTIFACT_FILENAME: 'published.zip'
+  PUBLISHED_PROJECT_PATH: './published'
+
+jobs:
+  build:
+    name: Build and publish
+    runs-on: windows-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      run: dotnet restore
+    - name: Build
+      run: dotnet build --no-restore
+    - name: Test
+      run: dotnet test --no-build --verbosity normal
+    - name: Publish
+      run: dotnet publish Nanofacture/ --no-restore --output ${{ env.PUBLISHED_PROJECT_PATH }} --configuration Release
+    - name: Upload published artifact
+      uses: actions/upload-artifact@v2.2.4
+      with:
+        name: ${{ env.PUBLISHED_ARTIFACT_FILENAME }}
+        path: ${{ env.PUBLISHED_PROJECT_PATH }}
+        if-no-files-found: error
+        retention-days: 1
+  
+  infer:
+    name: Infer# analysis
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+    - name: Download published project artifact
+      id: infer
+      uses: actions/download-artifact@v2
+      with:
+        name: ${{ env.PUBLISHED_ARTIFACT_FILENAME }}
+        path: ${{ env.PUBLISHED_PROJECT_PATH }}
+    - name: Run Infer#      
+      uses: microsoft/infersharpaction@v1.2
+      with:
+        binary-path: ${{ env.PUBLISHED_PROJECT_PATH }}
+    - name: Analyze Infer# results
+      run: >
+        echo "${{ steps.infer.outputs.results }}" | tee infersharp_results.txt;
+        if [[ -s "infersharp_results.txt" ]]; then echo "::notice::Infer# found nothing"; else echo "::warning::Infer# found issues"; fi;
