@@ -31,7 +31,7 @@ jobs:
     - name: Test
       run: dotnet test --no-build --verbosity normal
     - name: Publish
-      run: dotnet publish Nanofacture/ --no-restore --output ${{ env.PUBLISHED_PROJECT_PATH }} --configuration Release
+      run: dotnet publish V/ --no-restore --output ${{ env.PUBLISHED_PROJECT_PATH }} --configuration Release
     - name: Upload published artifact
       uses: actions/upload-artifact@v2.2.4
       with:
