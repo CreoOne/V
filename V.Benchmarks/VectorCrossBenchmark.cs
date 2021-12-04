@@ -21,6 +21,6 @@ namespace V.Benchmarks
 
         [Benchmark]
         public Vector Cross()
-            => Vector.Cross(Vectors);
+            => Vector.Cross(Vectors!);
     }
 }

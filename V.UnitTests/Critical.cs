@@ -12,7 +12,7 @@ namespace V.UnitTests
         [Fact]
         public void CloseEnough()
         {
-            Assert.True(Vector.CloseEnough(default, default, PrecisionE));
+            Assert.True(Vector.CloseEnough(new Vector(), new Vector(), PrecisionE));
             Assert.True(Vector.CloseEnough(new Vector(1), new Vector(1), PrecisionE));
             Assert.False(Vector.CloseEnough(new Vector(0.3333333333), new Vector(1) / 3, PrecisionE));
             Assert.True(Vector.CloseEnough(new Vector(0.33333333333), new Vector(1) / 3, PrecisionE));
@@ -22,7 +22,7 @@ namespace V.UnitTests
         [Fact]
         public void AngleDifference()
         {
-            Assert.Equal(0, Vector.AngleDifference(default, default, default), Precision);
+            Assert.Equal(0, Vector.AngleDifference(new Vector(), new Vector(), new Vector()), Precision);
             Assert.Equal(0, Vector.AngleDifference(new Vector(1, 0), Vector.Create(2, 0), new Vector(1, 0)), Precision);
             Assert.Equal(0, Vector.AngleDifference(new Vector(1, 0, 0), Vector.Create(3, 0), new Vector(1, 0, 0)), Precision);
 

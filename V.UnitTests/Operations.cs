@@ -18,7 +18,7 @@ namespace V.UnitTests
             }
 
             {
-                Vector[] output = Vector.Swap(default(Vector));
+                Vector[] output = Vector.Swap(new Vector());
 
                 Assert.Empty(output);
             }

@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace V
 {
-    public readonly struct Vector
+    public sealed class Vector
     {
         private static readonly NumberFormatInfo NumberFormat = new NumberFormatInfo { NumberDecimalSeparator = "." };
 
