@@ -460,8 +460,8 @@ namespace V
 
             int dimensions = vectors[0].Dimensions;
 
-            foreach(Vector vector in vectors.Skip(1))
-                if (dimensions != vector.Dimensions)
+            for (int i = 1; i < vectors.Length; i++)
+                if (dimensions != vectors[i].Dimensions)
                     throw new DimensionalityMismatchException();
         }
         
